@@ -1,5 +1,2 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
-libdrm-dev
-mesa-dev
-buildreq-kde

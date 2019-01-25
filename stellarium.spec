@@ -6,11 +6,11 @@
 #
 Name     : stellarium
 Version  : 0.18.3
-Release  : 1
+Release  : 2
 URL      : https://github.com/Stellarium/stellarium/releases/download/v0.18.3/stellarium-0.18.3.tar.gz
 Source0  : https://github.com/Stellarium/stellarium/releases/download/v0.18.3/stellarium-0.18.3.tar.gz
 Source99 : https://github.com/Stellarium/stellarium/releases/download/v0.18.3/stellarium-0.18.3.tar.gz.asc
-Summary  : A stellarium with great graphics and a nice database of sky-objects
+Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause GPL-2.0 LGPL-2.1 SGI-B-2.0
 Requires: stellarium-bin = %{version}-%{release}
@@ -18,28 +18,27 @@ Requires: stellarium-data = %{version}-%{release}
 Requires: stellarium-license = %{version}-%{release}
 Requires: stellarium-man = %{version}-%{release}
 BuildRequires : buildreq-cmake
-BuildRequires : buildreq-kde
 BuildRequires : buildreq-qmake
 BuildRequires : curl-dev
 BuildRequires : doxygen
 BuildRequires : gettext-dev
 BuildRequires : glibc-dev
 BuildRequires : gsl-dev
-BuildRequires : libdrm-dev
 BuildRequires : libjpeg-turbo-dev
-BuildRequires : mesa-dev
 BuildRequires : pkg-config
+BuildRequires : pkgconfig(Qt5Core)
+BuildRequires : pkgconfig(Qt5Multimedia)
+BuildRequires : pkgconfig(Qt5Positioning)
+BuildRequires : pkgconfig(Qt5Script)
+BuildRequires : pkgconfig(Qt5SerialPort)
+BuildRequires : pkgconfig(gl)
 BuildRequires : python3
 BuildRequires : qttools-dev
 BuildRequires : zlib-dev
 
 %description
-ZLIB DATA COMPRESSION LIBRARY
-zlib 1.2.11 is a general purpose data compression library.  All the code is
-thread safe.  The data format used by the zlib library is described by RFCs
-(Request for Comments) 1950 to 1952 in the files
-http://tools.ietf.org/html/rfc1950 (zlib format), rfc1951 (deflate format) and
-rfc1952 (gzip format).
+ORIGINAL SOURCE: http://gitweb.mageia.org/software/i18n/tools/
+This tools was modifiend for Stellarium
 
 %package bin
 Summary: bin components for the stellarium package.
@@ -84,15 +83,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1548383214
+export SOURCE_DATE_EPOCH=1548445243
 mkdir -p clr-build
 pushd clr-build
 %cmake ..
-make  %{?_smp_mflags}
+make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1548383214
+export SOURCE_DATE_EPOCH=1548445243
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/stellarium
 cp COPYING %{buildroot}/usr/share/package-licenses/stellarium/COPYING
