@@ -6,7 +6,7 @@
 #
 Name     : stellarium
 Version  : 0.18.3
-Release  : 2
+Release  : 3
 URL      : https://github.com/Stellarium/stellarium/releases/download/v0.18.3/stellarium-0.18.3.tar.gz
 Source0  : https://github.com/Stellarium/stellarium/releases/download/v0.18.3/stellarium-0.18.3.tar.gz
 Source99 : https://github.com/Stellarium/stellarium/releases/download/v0.18.3/stellarium-0.18.3.tar.gz.asc
@@ -83,15 +83,15 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1548445243
+export SOURCE_DATE_EPOCH=1548454767
 mkdir -p clr-build
 pushd clr-build
-%cmake ..
+%cmake .. -DBUILD_SHARED_LIBS=0
 make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1548445243
+export SOURCE_DATE_EPOCH=1548454767
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/stellarium
 cp COPYING %{buildroot}/usr/share/package-licenses/stellarium/COPYING
