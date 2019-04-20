@@ -6,7 +6,7 @@
 #
 Name     : stellarium
 Version  : 0.19.0
-Release  : 4
+Release  : 5
 URL      : https://github.com/Stellarium/stellarium/releases/download/v0.19.0/stellarium-0.19.0.tar.gz
 Source0  : https://github.com/Stellarium/stellarium/releases/download/v0.19.0/stellarium-0.19.0.tar.gz
 Source99 : https://github.com/Stellarium/stellarium/releases/download/v0.19.0/stellarium-0.19.0.tar.gz.asc
