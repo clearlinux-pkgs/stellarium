@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x9380E47C0374E169 (alex.v.wolf@gmail.com)
 #
 Name     : stellarium
-Version  : 0.19.0
-Release  : 5
-URL      : https://github.com/Stellarium/stellarium/releases/download/v0.19.0/stellarium-0.19.0.tar.gz
-Source0  : https://github.com/Stellarium/stellarium/releases/download/v0.19.0/stellarium-0.19.0.tar.gz
-Source99 : https://github.com/Stellarium/stellarium/releases/download/v0.19.0/stellarium-0.19.0.tar.gz.asc
+Version  : 0.19.2
+Release  : 6
+URL      : https://github.com/Stellarium/stellarium/releases/download/v0.19.2/stellarium-0.19.2.tar.gz
+Source0  : https://github.com/Stellarium/stellarium/releases/download/v0.19.2/stellarium-0.19.2.tar.gz
+Source1 : https://github.com/Stellarium/stellarium/releases/download/v0.19.2/stellarium-0.19.2.tar.gz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause GPL-2.0 LGPL-2.1 SGI-B-2.0
@@ -37,15 +37,14 @@ BuildRequires : qttools-dev
 BuildRequires : zlib-dev
 
 %description
-ORIGINAL SOURCE: http://gitweb.mageia.org/software/i18n/tools/
-This tools was modifiend for Stellarium
+Consolidated DSO catalog
+================================================================================================
 
 %package bin
 Summary: bin components for the stellarium package.
 Group: Binaries
 Requires: stellarium-data = %{version}-%{release}
 Requires: stellarium-license = %{version}-%{release}
-Requires: stellarium-man = %{version}-%{release}
 
 %description bin
 bin components for the stellarium package.
@@ -76,52 +75,56 @@ man components for the stellarium package.
 
 
 %prep
-%setup -q -n stellarium-0.19.0
+%setup -q -n stellarium-0.19.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1553805868
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1571178324
 mkdir -p clr-build
 pushd clr-build
-export LDFLAGS="${LDFLAGS} -fno-lto"
+export GCC_IGNORE_WERROR=1
+export CFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$CFLAGS -fno-lto "
+export FFLAGS="$CFLAGS -fno-lto "
+export CXXFLAGS="$CXXFLAGS -fno-lto "
 %cmake .. -DBUILD_SHARED_LIBS=0
-make  %{?_smp_mflags} VERBOSE=1
+make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1553805868
+export SOURCE_DATE_EPOCH=1571178324
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/stellarium
-cp COPYING %{buildroot}/usr/share/package-licenses/stellarium/COPYING
-cp plugins/AngleMeasure/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_AngleMeasure_COPYING
-cp plugins/ArchaeoLines/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_ArchaeoLines_COPYING
-cp plugins/CompassMarks/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_CompassMarks_COPYING
-cp plugins/EquationOfTime/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_EquationOfTime_COPYING
-cp plugins/Exoplanets/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_Exoplanets_COPYING
-cp plugins/HelloStelModule/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_HelloStelModule_COPYING
-cp plugins/MeteorShowers/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_MeteorShowers_COPYING
-cp plugins/NavStars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_NavStars_COPYING
-cp plugins/Novae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_Novae_COPYING
-cp plugins/Oculars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_Oculars_COPYING
-cp plugins/PointerCoordinates/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_PointerCoordinates_COPYING
-cp plugins/Pulsars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_Pulsars_COPYING
-cp plugins/Quasars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_Quasars_COPYING
-cp plugins/RemoteControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_RemoteControl_COPYING
-cp plugins/Satellites/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_Satellites_COPYING
-cp plugins/Scenery3d/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_Scenery3d_COPYING
-cp plugins/SimpleDrawLine/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_SimpleDrawLine_COPYING
-cp plugins/Supernovae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_Supernovae_COPYING
-cp plugins/TelescopeControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_TelescopeControl_COPYING
-cp plugins/TextUserInterface/COPYING %{buildroot}/usr/share/package-licenses/stellarium/plugins_TextUserInterface_COPYING
-cp src/external/glues_stel/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/src_external_glues_stel_LICENSE
-cp src/external/libindi/COPYING.BSD %{buildroot}/usr/share/package-licenses/stellarium/src_external_libindi_COPYING.BSD
-cp src/external/libindi/COPYING.GPL %{buildroot}/usr/share/package-licenses/stellarium/src_external_libindi_COPYING.GPL
-cp src/external/libindi/COPYING.LGPL %{buildroot}/usr/share/package-licenses/stellarium/src_external_libindi_COPYING.LGPL
-cp src/external/libindi/COPYRIGHT %{buildroot}/usr/share/package-licenses/stellarium/src_external_libindi_COPYRIGHT
-cp src/external/libindi/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/src_external_libindi_LICENSE
+cp %{_builddir}/stellarium-0.19.2/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/AngleMeasure/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/ArchaeoLines/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/CompassMarks/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/EquationOfTime/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/Exoplanets/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/HelloStelModule/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/MeteorShowers/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/NavStars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/Novae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/Oculars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/PointerCoordinates/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/Pulsars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/Quasars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/RemoteControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/Satellites/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/Scenery3d/COPYING %{buildroot}/usr/share/package-licenses/stellarium/dfac199a7539a404407098a2541b9482279f690d
+cp %{_builddir}/stellarium-0.19.2/plugins/SimpleDrawLine/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/Supernovae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/TelescopeControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/plugins/TextUserInterface/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.19.2/src/external/glues_stel/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/a9fbc5ee6bc3b991c1fee735b96204001a8d64fe
+cp %{_builddir}/stellarium-0.19.2/src/external/libindi/COPYING.BSD %{buildroot}/usr/share/package-licenses/stellarium/c237597680be0db41fc5ca7249bc540b8825371e
+cp %{_builddir}/stellarium-0.19.2/src/external/libindi/COPYING.GPL %{buildroot}/usr/share/package-licenses/stellarium/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/stellarium-0.19.2/src/external/libindi/COPYING.LGPL %{buildroot}/usr/share/package-licenses/stellarium/01a6b4bf79aca9b556822601186afab86e8c4fbf
+cp %{_builddir}/stellarium-0.19.2/src/external/libindi/COPYRIGHT %{buildroot}/usr/share/package-licenses/stellarium/85c02e0cb8c0aaac8a3f3eed04bc1a097e145883
+cp %{_builddir}/stellarium-0.19.2/src/external/libindi/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/597bf5f9c0904bd6c48ac3a3527685818d11246d
 pushd clr-build
 %make_install
 popd
@@ -149,13 +152,13 @@ popd
 /usr/share/stellarium/data/DejaVuSans.ttf
 /usr/share/stellarium/data/DejaVuSansMono.ttf
 /usr/share/stellarium/data/base_locations.bin.gz
-/usr/share/stellarium/data/constellations_boundaries.dat
+/usr/share/stellarium/data/constellation_boundaries.dat
 /usr/share/stellarium/data/constellations_spans.dat
 /usr/share/stellarium/data/countryCodes.dat
 /usr/share/stellarium/data/default_cfg.ini
 /usr/share/stellarium/data/iso3166.tab
 /usr/share/stellarium/data/iso639-1.utf8
-/usr/share/stellarium/data/nomenclature.fab
+/usr/share/stellarium/data/nomenclature.dat
 /usr/share/stellarium/data/shaders/planet.frag
 /usr/share/stellarium/data/shaders/planet.vert
 /usr/share/stellarium/data/shaders/s3d_cube.frag
@@ -178,9 +181,6 @@ popd
 /usr/share/stellarium/data/ssystem_major.ini
 /usr/share/stellarium/data/ssystem_minor.ini
 /usr/share/stellarium/data/stellarium.ico
-/usr/share/stellarium/landscapes/armintxe_cave/armintxe_cave.png
-/usr/share/stellarium/landscapes/armintxe_cave/description.en.utf8
-/usr/share/stellarium/landscapes/armintxe_cave/landscape.ini
 /usr/share/stellarium/landscapes/garching/description.ar.utf8
 /usr/share/stellarium/landscapes/garching/description.be.utf8
 /usr/share/stellarium/landscapes/garching/description.bg.utf8
@@ -502,6 +502,7 @@ popd
 /usr/share/stellarium/nebulae/default/Jones-Emberson1-vasey.png
 /usr/share/stellarium/nebulae/default/Medusa-vasey.png
 /usr/share/stellarium/nebulae/default/barnard142-vasey.png
+/usr/share/stellarium/nebulae/default/barnard150.png
 /usr/share/stellarium/nebulae/default/barnard173-vasey.png
 /usr/share/stellarium/nebulae/default/barnard207.png
 /usr/share/stellarium/nebulae/default/barnard22-vasey.png
@@ -549,6 +550,9 @@ popd
 /usr/share/stellarium/nebulae/default/ic5146.png
 /usr/share/stellarium/nebulae/default/ic883h.png
 /usr/share/stellarium/nebulae/default/lbn438.png
+/usr/share/stellarium/nebulae/default/ldn1622.png
+/usr/share/stellarium/nebulae/default/ldn673.png
+/usr/share/stellarium/nebulae/default/leo_cluster.png
 /usr/share/stellarium/nebulae/default/lmc_01.png
 /usr/share/stellarium/nebulae/default/lmc_02.png
 /usr/share/stellarium/nebulae/default/lmc_03.png
@@ -734,6 +738,7 @@ popd
 /usr/share/stellarium/nebulae/default/n2685-vasey.png
 /usr/share/stellarium/nebulae/default/n2736.png
 /usr/share/stellarium/nebulae/default/n2775.png
+/usr/share/stellarium/nebulae/default/n2805-vasey.png
 /usr/share/stellarium/nebulae/default/n2808.png
 /usr/share/stellarium/nebulae/default/n2818.png
 /usr/share/stellarium/nebulae/default/n281kepler.png
@@ -758,6 +763,7 @@ popd
 /usr/share/stellarium/nebulae/default/n3314.png
 /usr/share/stellarium/nebulae/default/n3344-vasey.png
 /usr/share/stellarium/nebulae/default/n3359-vasey.png
+/usr/share/stellarium/nebulae/default/n3504-vasey.png
 /usr/share/stellarium/nebulae/default/n3521-vasey.png
 /usr/share/stellarium/nebulae/default/n3532.png
 /usr/share/stellarium/nebulae/default/n3603.png
@@ -801,6 +807,7 @@ popd
 /usr/share/stellarium/nebulae/default/n4676.png
 /usr/share/stellarium/nebulae/default/n4697-dss.png
 /usr/share/stellarium/nebulae/default/n4725.png
+/usr/share/stellarium/nebulae/default/n474-vasey.png
 /usr/share/stellarium/nebulae/default/n4755.png
 /usr/share/stellarium/nebulae/default/n4833-dss.png
 /usr/share/stellarium/nebulae/default/n488-vasey.png
@@ -817,6 +824,7 @@ popd
 /usr/share/stellarium/nebulae/default/n5286.png
 /usr/share/stellarium/nebulae/default/n5367.png
 /usr/share/stellarium/nebulae/default/n5466.png
+/usr/share/stellarium/nebulae/default/n5474.png
 /usr/share/stellarium/nebulae/default/n55.png
 /usr/share/stellarium/nebulae/default/n5566.png
 /usr/share/stellarium/nebulae/default/n5694-dss.png
@@ -846,14 +854,18 @@ popd
 /usr/share/stellarium/nebulae/default/n6397.png
 /usr/share/stellarium/nebulae/default/n6441-2mass.png
 /usr/share/stellarium/nebulae/default/n6445.png
+/usr/share/stellarium/nebulae/default/n6522.png
 /usr/share/stellarium/nebulae/default/n6541-dss.png
 /usr/share/stellarium/nebulae/default/n6543kepler.png
+/usr/share/stellarium/nebulae/default/n6544.png
+/usr/share/stellarium/nebulae/default/n6553.png
 /usr/share/stellarium/nebulae/default/n6563.png
 /usr/share/stellarium/nebulae/default/n6590.png
 /usr/share/stellarium/nebulae/default/n660.png
 /usr/share/stellarium/nebulae/default/n6624-dss.png
 /usr/share/stellarium/nebulae/default/n663.png
 /usr/share/stellarium/nebulae/default/n6712-2mass.png
+/usr/share/stellarium/nebulae/default/n672-vasey.png
 /usr/share/stellarium/nebulae/default/n6726.png
 /usr/share/stellarium/nebulae/default/n6744.png
 /usr/share/stellarium/nebulae/default/n6752.png
@@ -866,6 +878,7 @@ popd
 /usr/share/stellarium/nebulae/default/n6894.png
 /usr/share/stellarium/nebulae/default/n6905.png
 /usr/share/stellarium/nebulae/default/n6914.png
+/usr/share/stellarium/nebulae/default/n691group-vasey.png
 /usr/share/stellarium/nebulae/default/n6934-dss.png
 /usr/share/stellarium/nebulae/default/n6946dumont.png
 /usr/share/stellarium/nebulae/default/n6960.png
@@ -886,6 +899,7 @@ popd
 /usr/share/stellarium/nebulae/default/n7538.png
 /usr/share/stellarium/nebulae/default/n7590-trev.png
 /usr/share/stellarium/nebulae/default/n7635-vasey.png
+/usr/share/stellarium/nebulae/default/n7640-vasey.png
 /usr/share/stellarium/nebulae/default/n7662.png
 /usr/share/stellarium/nebulae/default/n772.png
 /usr/share/stellarium/nebulae/default/n7742.png
@@ -922,6 +936,7 @@ popd
 /usr/share/stellarium/nebulae/default/rho-a10.png
 /usr/share/stellarium/nebulae/default/rho-a11.png
 /usr/share/stellarium/nebulae/default/sh2-101-vasey.png
+/usr/share/stellarium/nebulae/default/sh2-106.png
 /usr/share/stellarium/nebulae/default/sh2-136.png
 /usr/share/stellarium/nebulae/default/sh2-155.png
 /usr/share/stellarium/nebulae/default/sh2-240.png
@@ -930,6 +945,7 @@ popd
 /usr/share/stellarium/nebulae/default/sh2-264.png
 /usr/share/stellarium/nebulae/default/sh2-297.png
 /usr/share/stellarium/nebulae/default/sh2-308.png
+/usr/share/stellarium/nebulae/default/sh2-80.png
 /usr/share/stellarium/nebulae/default/smc-ha.png
 /usr/share/stellarium/nebulae/default/smc29-1.png
 /usr/share/stellarium/nebulae/default/smc29-2.png
@@ -1039,6 +1055,7 @@ popd
 /usr/share/stellarium/scripts/lunar_partial.ssc
 /usr/share/stellarium/scripts/lunar_total.ssc
 /usr/share/stellarium/scripts/martian_analemma.ssc
+/usr/share/stellarium/scripts/messier_marathon.ssc
 /usr/share/stellarium/scripts/messier_tour.ssc
 /usr/share/stellarium/scripts/morsels_1.ssc
 /usr/share/stellarium/scripts/morsels_2.ssc
@@ -1050,6 +1067,7 @@ popd
 /usr/share/stellarium/scripts/phobos_phun_4.ssc
 /usr/share/stellarium/scripts/phobos_phun_5.ssc
 /usr/share/stellarium/scripts/planets_tour.ssc
+/usr/share/stellarium/scripts/saturnian_analemma.ssc
 /usr/share/stellarium/scripts/save_state.inc
 /usr/share/stellarium/scripts/screensaver.ssc
 /usr/share/stellarium/scripts/sky_cultures.ssc
@@ -1062,8 +1080,16 @@ popd
 /usr/share/stellarium/scripts/transit_of_venus.ssc
 /usr/share/stellarium/scripts/translation.inc
 /usr/share/stellarium/scripts/triple_sunrise_and_sunsets.ssc
+/usr/share/stellarium/scripts/uranian_analemma.ssc
 /usr/share/stellarium/scripts/western_constellations_tour.ssc
 /usr/share/stellarium/scripts/zodiac.ssc
+/usr/share/stellarium/skycultures/anutan/constellation_names.eng.fab
+/usr/share/stellarium/skycultures/anutan/constellationship.fab
+/usr/share/stellarium/skycultures/anutan/description.en.utf8
+/usr/share/stellarium/skycultures/anutan/dso_names.fab
+/usr/share/stellarium/skycultures/anutan/info.ini
+/usr/share/stellarium/skycultures/anutan/planet_names.fab
+/usr/share/stellarium/skycultures/anutan/star_names.fab
 /usr/share/stellarium/skycultures/arabic/Bearer-of-the-Demons-Head.png
 /usr/share/stellarium/skycultures/arabic/Book_of_Fixed_Stars3.png
 /usr/share/stellarium/skycultures/arabic/CentaurAndThe-Beast-of-Prey.png
@@ -1144,24 +1170,6 @@ popd
 /usr/share/stellarium/skycultures/arabic_moon_stations/description.zh_TW.utf8
 /usr/share/stellarium/skycultures/arabic_moon_stations/info.ini
 /usr/share/stellarium/skycultures/arabic_moon_stations/star_names.fab
-/usr/share/stellarium/skycultures/armintxe/Armintxesala.png
-/usr/share/stellarium/skycultures/armintxe/bison1.png
-/usr/share/stellarium/skycultures/armintxe/bison2.png
-/usr/share/stellarium/skycultures/armintxe/constellation_names.eng.fab
-/usr/share/stellarium/skycultures/armintxe/constellationsart.fab
-/usr/share/stellarium/skycultures/armintxe/constellationship.fab
-/usr/share/stellarium/skycultures/armintxe/description.en.utf8
-/usr/share/stellarium/skycultures/armintxe/horse2.png
-/usr/share/stellarium/skycultures/armintxe/horse3.png
-/usr/share/stellarium/skycultures/armintxe/horsehead.png
-/usr/share/stellarium/skycultures/armintxe/ibex.png
-/usr/share/stellarium/skycultures/armintxe/ibex2.png
-/usr/share/stellarium/skycultures/armintxe/ibex3.png
-/usr/share/stellarium/skycultures/armintxe/info.ini
-/usr/share/stellarium/skycultures/armintxe/lion.png
-/usr/share/stellarium/skycultures/armintxe/osoa.png
-/usr/share/stellarium/skycultures/armintxe/river.png
-/usr/share/stellarium/skycultures/armintxe/twoheadhorse.png
 /usr/share/stellarium/skycultures/aztec/Primeros_Memoriales.png
 /usr/share/stellarium/skycultures/aztec/Tianquiztli_T.png
 /usr/share/stellarium/skycultures/aztec/aztec0.png
@@ -1278,9 +1286,9 @@ popd
 /usr/share/stellarium/skycultures/boorong/won.png
 /usr/share/stellarium/skycultures/boorong/yerredkr.png
 /usr/share/stellarium/skycultures/boorong/yurree.png
+/usr/share/stellarium/skycultures/chinese/constellation_boundaries.dat
 /usr/share/stellarium/skycultures/chinese/constellation_names.eng.fab
 /usr/share/stellarium/skycultures/chinese/constellation_names.zh_CN.fab
-/usr/share/stellarium/skycultures/chinese/constellations_boundaries.dat
 /usr/share/stellarium/skycultures/chinese/constellationship.fab
 /usr/share/stellarium/skycultures/chinese/description.ar.utf8
 /usr/share/stellarium/skycultures/chinese/description.be.utf8
@@ -1394,9 +1402,9 @@ popd
 /usr/share/stellarium/skycultures/chinese_contemporary/virgo.png
 /usr/share/stellarium/skycultures/chinese_contemporary/volans.png
 /usr/share/stellarium/skycultures/chinese_contemporary/vulpecula.png
+/usr/share/stellarium/skycultures/chinese_medieval/constellation_boundaries.dat
 /usr/share/stellarium/skycultures/chinese_medieval/constellation_names.eng.fab
 /usr/share/stellarium/skycultures/chinese_medieval/constellation_names.zh_CN.fab
-/usr/share/stellarium/skycultures/chinese_medieval/constellations_boundaries.dat
 /usr/share/stellarium/skycultures/chinese_medieval/constellationship.fab
 /usr/share/stellarium/skycultures/chinese_medieval/description.en.utf8
 /usr/share/stellarium/skycultures/chinese_medieval/description.zh_CN.utf8
@@ -1609,8 +1617,8 @@ popd
 /usr/share/stellarium/skycultures/korean/description.zh_TW.utf8
 /usr/share/stellarium/skycultures/korean/info.ini
 /usr/share/stellarium/skycultures/korean/star_names.fab
+/usr/share/stellarium/skycultures/lokono/constellation_boundaries.dat
 /usr/share/stellarium/skycultures/lokono/constellation_names.eng.fab
-/usr/share/stellarium/skycultures/lokono/constellations_boundaries.dat
 /usr/share/stellarium/skycultures/lokono/constellationsart.fab
 /usr/share/stellarium/skycultures/lokono/constellationship.fab
 /usr/share/stellarium/skycultures/lokono/description.en.utf8
@@ -1963,6 +1971,26 @@ popd
 /usr/share/stellarium/skycultures/tupi/description.zh_TW.utf8
 /usr/share/stellarium/skycultures/tupi/info.ini
 /usr/share/stellarium/skycultures/tupi/star_names.fab
+/usr/share/stellarium/skycultures/vanuatu_netwar/constellation_names.eng.fab
+/usr/share/stellarium/skycultures/vanuatu_netwar/constellation_names.fra.fab
+/usr/share/stellarium/skycultures/vanuatu_netwar/constellationsart.fab
+/usr/share/stellarium/skycultures/vanuatu_netwar/constellationship.fab
+/usr/share/stellarium/skycultures/vanuatu_netwar/description.cs.utf8
+/usr/share/stellarium/skycultures/vanuatu_netwar/description.en.utf8
+/usr/share/stellarium/skycultures/vanuatu_netwar/description.fr.utf8
+/usr/share/stellarium/skycultures/vanuatu_netwar/dso_names.fab
+/usr/share/stellarium/skycultures/vanuatu_netwar/info.ini
+/usr/share/stellarium/skycultures/vanuatu_netwar/kahau.png
+/usr/share/stellarium/skycultures/vanuatu_netwar/kasulia_apam.png
+/usr/share/stellarium/skycultures/vanuatu_netwar/kasulia_rerparep.png
+/usr/share/stellarium/skycultures/vanuatu_netwar/kilil.png
+/usr/share/stellarium/skycultures/vanuatu_netwar/kou.png
+/usr/share/stellarium/skycultures/vanuatu_netwar/nemrau.png
+/usr/share/stellarium/skycultures/vanuatu_netwar/nowanuman_l.png
+/usr/share/stellarium/skycultures/vanuatu_netwar/nowanuman_s.png
+/usr/share/stellarium/skycultures/vanuatu_netwar/planet_names.fab
+/usr/share/stellarium/skycultures/vanuatu_netwar/star_names.fab
+/usr/share/stellarium/skycultures/vanuatu_netwar/suatu_kywer.png
 /usr/share/stellarium/skycultures/western/andromeda.png
 /usr/share/stellarium/skycultures/western/antlia.png
 /usr/share/stellarium/skycultures/western/apus.png
@@ -2259,6 +2287,7 @@ popd
 /usr/share/stellarium/translations/stellarium-planetary-features/ka.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/kk.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/ko.qm
+/usr/share/stellarium/translations/stellarium-planetary-features/ku.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/ky.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/la.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/lt.qm
@@ -2288,6 +2317,7 @@ popd
 /usr/share/stellarium/translations/stellarium-planetary-features/sv.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/sw.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/ta.qm
+/usr/share/stellarium/translations/stellarium-planetary-features/te.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/tg.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/th.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/tl.qm
@@ -2347,6 +2377,7 @@ popd
 /usr/share/stellarium/translations/stellarium-remotecontrol/ka.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/kk.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/ko.qm
+/usr/share/stellarium/translations/stellarium-remotecontrol/ku.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/ky.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/la.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/lt.qm
@@ -2376,6 +2407,7 @@ popd
 /usr/share/stellarium/translations/stellarium-remotecontrol/sv.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/sw.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/ta.qm
+/usr/share/stellarium/translations/stellarium-remotecontrol/te.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/tg.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/th.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/tl.qm
@@ -2435,6 +2467,7 @@ popd
 /usr/share/stellarium/translations/stellarium-scripts/ka.qm
 /usr/share/stellarium/translations/stellarium-scripts/kk.qm
 /usr/share/stellarium/translations/stellarium-scripts/ko.qm
+/usr/share/stellarium/translations/stellarium-scripts/ku.qm
 /usr/share/stellarium/translations/stellarium-scripts/ky.qm
 /usr/share/stellarium/translations/stellarium-scripts/la.qm
 /usr/share/stellarium/translations/stellarium-scripts/lt.qm
@@ -2464,6 +2497,7 @@ popd
 /usr/share/stellarium/translations/stellarium-scripts/sv.qm
 /usr/share/stellarium/translations/stellarium-scripts/sw.qm
 /usr/share/stellarium/translations/stellarium-scripts/ta.qm
+/usr/share/stellarium/translations/stellarium-scripts/te.qm
 /usr/share/stellarium/translations/stellarium-scripts/tg.qm
 /usr/share/stellarium/translations/stellarium-scripts/th.qm
 /usr/share/stellarium/translations/stellarium-scripts/tl.qm
@@ -2535,6 +2569,7 @@ popd
 /usr/share/stellarium/translations/stellarium-skycultures/kg.qm
 /usr/share/stellarium/translations/stellarium-skycultures/kk.qm
 /usr/share/stellarium/translations/stellarium-skycultures/ko.qm
+/usr/share/stellarium/translations/stellarium-skycultures/ku.qm
 /usr/share/stellarium/translations/stellarium-skycultures/ky.qm
 /usr/share/stellarium/translations/stellarium-skycultures/la.qm
 /usr/share/stellarium/translations/stellarium-skycultures/lt.qm
@@ -2568,6 +2603,7 @@ popd
 /usr/share/stellarium/translations/stellarium-skycultures/sv.qm
 /usr/share/stellarium/translations/stellarium-skycultures/sw.qm
 /usr/share/stellarium/translations/stellarium-skycultures/ta.qm
+/usr/share/stellarium/translations/stellarium-skycultures/te.qm
 /usr/share/stellarium/translations/stellarium-skycultures/tg.qm
 /usr/share/stellarium/translations/stellarium-skycultures/th.qm
 /usr/share/stellarium/translations/stellarium-skycultures/tl.qm
@@ -2639,6 +2675,7 @@ popd
 /usr/share/stellarium/translations/stellarium/kg.qm
 /usr/share/stellarium/translations/stellarium/kk.qm
 /usr/share/stellarium/translations/stellarium/ko.qm
+/usr/share/stellarium/translations/stellarium/ku.qm
 /usr/share/stellarium/translations/stellarium/ky.qm
 /usr/share/stellarium/translations/stellarium/la.qm
 /usr/share/stellarium/translations/stellarium/lt.qm
@@ -2671,6 +2708,7 @@ popd
 /usr/share/stellarium/translations/stellarium/sv.qm
 /usr/share/stellarium/translations/stellarium/sw.qm
 /usr/share/stellarium/translations/stellarium/ta.qm
+/usr/share/stellarium/translations/stellarium/te.qm
 /usr/share/stellarium/translations/stellarium/tg.qm
 /usr/share/stellarium/translations/stellarium/th.qm
 /usr/share/stellarium/translations/stellarium/tl.qm
@@ -2732,7 +2770,7 @@ popd
 /usr/share/stellarium/webroot/js/api/viewcontrol.js
 /usr/share/stellarium/webroot/js/api/viewoptions.js
 /usr/share/stellarium/webroot/js/globalize.js
-/usr/share/stellarium/webroot/js/jquery-3.3.1.js
+/usr/share/stellarium/webroot/js/jquery-3.4.1.js
 /usr/share/stellarium/webroot/js/jquery-ui.js
 /usr/share/stellarium/webroot/js/jquery.ui.touch-punch.js
 /usr/share/stellarium/webroot/js/main.js
@@ -2758,33 +2796,14 @@ popd
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/stellarium/COPYING
-/usr/share/package-licenses/stellarium/plugins_AngleMeasure_COPYING
-/usr/share/package-licenses/stellarium/plugins_ArchaeoLines_COPYING
-/usr/share/package-licenses/stellarium/plugins_CompassMarks_COPYING
-/usr/share/package-licenses/stellarium/plugins_EquationOfTime_COPYING
-/usr/share/package-licenses/stellarium/plugins_Exoplanets_COPYING
-/usr/share/package-licenses/stellarium/plugins_HelloStelModule_COPYING
-/usr/share/package-licenses/stellarium/plugins_MeteorShowers_COPYING
-/usr/share/package-licenses/stellarium/plugins_NavStars_COPYING
-/usr/share/package-licenses/stellarium/plugins_Novae_COPYING
-/usr/share/package-licenses/stellarium/plugins_Oculars_COPYING
-/usr/share/package-licenses/stellarium/plugins_PointerCoordinates_COPYING
-/usr/share/package-licenses/stellarium/plugins_Pulsars_COPYING
-/usr/share/package-licenses/stellarium/plugins_Quasars_COPYING
-/usr/share/package-licenses/stellarium/plugins_RemoteControl_COPYING
-/usr/share/package-licenses/stellarium/plugins_Satellites_COPYING
-/usr/share/package-licenses/stellarium/plugins_Scenery3d_COPYING
-/usr/share/package-licenses/stellarium/plugins_SimpleDrawLine_COPYING
-/usr/share/package-licenses/stellarium/plugins_Supernovae_COPYING
-/usr/share/package-licenses/stellarium/plugins_TelescopeControl_COPYING
-/usr/share/package-licenses/stellarium/plugins_TextUserInterface_COPYING
-/usr/share/package-licenses/stellarium/src_external_glues_stel_LICENSE
-/usr/share/package-licenses/stellarium/src_external_libindi_COPYING.BSD
-/usr/share/package-licenses/stellarium/src_external_libindi_COPYING.GPL
-/usr/share/package-licenses/stellarium/src_external_libindi_COPYING.LGPL
-/usr/share/package-licenses/stellarium/src_external_libindi_COPYRIGHT
-/usr/share/package-licenses/stellarium/src_external_libindi_LICENSE
+/usr/share/package-licenses/stellarium/01a6b4bf79aca9b556822601186afab86e8c4fbf
+/usr/share/package-licenses/stellarium/4cc77b90af91e615a64ae04893fdffa7939db84c
+/usr/share/package-licenses/stellarium/597bf5f9c0904bd6c48ac3a3527685818d11246d
+/usr/share/package-licenses/stellarium/85c02e0cb8c0aaac8a3f3eed04bc1a097e145883
+/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+/usr/share/package-licenses/stellarium/a9fbc5ee6bc3b991c1fee735b96204001a8d64fe
+/usr/share/package-licenses/stellarium/c237597680be0db41fc5ca7249bc540b8825371e
+/usr/share/package-licenses/stellarium/dfac199a7539a404407098a2541b9482279f690d
 
 %files man
 %defattr(0644,root,root,0755)
