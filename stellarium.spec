@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x9380E47C0374E169 (alex.v.wolf@gmail.com)
 #
 Name     : stellarium
-Version  : 0.20.0
-Release  : 7
-URL      : https://github.com/Stellarium/stellarium/releases/download/v0.20.0/stellarium-0.20.0.tar.gz
-Source0  : https://github.com/Stellarium/stellarium/releases/download/v0.20.0/stellarium-0.20.0.tar.gz
-Source1  : https://github.com/Stellarium/stellarium/releases/download/v0.20.0/stellarium-0.20.0.tar.gz.asc
+Version  : 0.20.1
+Release  : 8
+URL      : https://github.com/Stellarium/stellarium/releases/download/v0.20.1/stellarium-0.20.1.tar.gz
+Source0  : https://github.com/Stellarium/stellarium/releases/download/v0.20.1/stellarium-0.20.1.tar.gz
+Source1  : https://github.com/Stellarium/stellarium/releases/download/v0.20.1/stellarium-0.20.1.tar.gz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause GPL-2.0 LGPL-2.1 SGI-B-2.0
@@ -75,57 +75,57 @@ man components for the stellarium package.
 
 
 %prep
-%setup -q -n stellarium-0.20.0
-cd %{_builddir}/stellarium-0.20.0
+%setup -q -n stellarium-0.20.1
+cd %{_builddir}/stellarium-0.20.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1585587251
+export SOURCE_DATE_EPOCH=1587400751
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
-export FCFLAGS="$CFLAGS -fno-lto "
-export FFLAGS="$CFLAGS -fno-lto "
+export FCFLAGS="$FFLAGS -fno-lto "
+export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 %cmake .. -DBUILD_SHARED_LIBS=0
 make  %{?_smp_mflags}  VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1585587251
+export SOURCE_DATE_EPOCH=1587400751
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/stellarium
-cp %{_builddir}/stellarium-0.20.0/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/AngleMeasure/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/ArchaeoLines/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/CompassMarks/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/EquationOfTime/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/Exoplanets/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/HelloStelModule/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/MeteorShowers/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/NavStars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/Novae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/Oculars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/PointerCoordinates/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/Pulsars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/Quasars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/RemoteControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/Satellites/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/Scenery3d/COPYING %{buildroot}/usr/share/package-licenses/stellarium/dfac199a7539a404407098a2541b9482279f690d
-cp %{_builddir}/stellarium-0.20.0/plugins/SimpleDrawLine/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/Supernovae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/TelescopeControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/plugins/TextUserInterface/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.0/src/external/glues_stel/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/a9fbc5ee6bc3b991c1fee735b96204001a8d64fe
-cp %{_builddir}/stellarium-0.20.0/src/external/libindi/COPYING.BSD %{buildroot}/usr/share/package-licenses/stellarium/c237597680be0db41fc5ca7249bc540b8825371e
-cp %{_builddir}/stellarium-0.20.0/src/external/libindi/COPYING.GPL %{buildroot}/usr/share/package-licenses/stellarium/4cc77b90af91e615a64ae04893fdffa7939db84c
-cp %{_builddir}/stellarium-0.20.0/src/external/libindi/COPYING.LGPL %{buildroot}/usr/share/package-licenses/stellarium/01a6b4bf79aca9b556822601186afab86e8c4fbf
-cp %{_builddir}/stellarium-0.20.0/src/external/libindi/COPYRIGHT %{buildroot}/usr/share/package-licenses/stellarium/85c02e0cb8c0aaac8a3f3eed04bc1a097e145883
-cp %{_builddir}/stellarium-0.20.0/src/external/libindi/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/597bf5f9c0904bd6c48ac3a3527685818d11246d
+cp %{_builddir}/stellarium-0.20.1/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/AngleMeasure/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/ArchaeoLines/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/CompassMarks/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/EquationOfTime/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/Exoplanets/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/HelloStelModule/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/MeteorShowers/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/NavStars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/Novae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/Oculars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/PointerCoordinates/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/Pulsars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/Quasars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/RemoteControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/Satellites/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/Scenery3d/COPYING %{buildroot}/usr/share/package-licenses/stellarium/dfac199a7539a404407098a2541b9482279f690d
+cp %{_builddir}/stellarium-0.20.1/plugins/SimpleDrawLine/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/Supernovae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/TelescopeControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/plugins/TextUserInterface/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.1/src/external/glues_stel/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/a9fbc5ee6bc3b991c1fee735b96204001a8d64fe
+cp %{_builddir}/stellarium-0.20.1/src/external/libindi/COPYING.BSD %{buildroot}/usr/share/package-licenses/stellarium/c237597680be0db41fc5ca7249bc540b8825371e
+cp %{_builddir}/stellarium-0.20.1/src/external/libindi/COPYING.GPL %{buildroot}/usr/share/package-licenses/stellarium/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/stellarium-0.20.1/src/external/libindi/COPYING.LGPL %{buildroot}/usr/share/package-licenses/stellarium/01a6b4bf79aca9b556822601186afab86e8c4fbf
+cp %{_builddir}/stellarium-0.20.1/src/external/libindi/COPYRIGHT %{buildroot}/usr/share/package-licenses/stellarium/85c02e0cb8c0aaac8a3f3eed04bc1a097e145883
+cp %{_builddir}/stellarium-0.20.1/src/external/libindi/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/597bf5f9c0904bd6c48ac3a3527685818d11246d
 pushd clr-build
 %make_install
 popd
@@ -2503,6 +2503,7 @@ popd
 /usr/share/stellarium/textures/saturn_rings_radial.png
 /usr/share/stellarium/textures/sedna.png
 /usr/share/stellarium/textures/star16x16.png
+/usr/share/stellarium/textures/star16x16_rays.png
 /usr/share/stellarium/textures/sun.png
 /usr/share/stellarium/textures/telescope.png
 /usr/share/stellarium/textures/tethys.png
@@ -2566,6 +2567,7 @@ popd
 /usr/share/stellarium/translations/stellarium-planetary-features/ku.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/ky.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/la.qm
+/usr/share/stellarium/translations/stellarium-planetary-features/lb.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/lt.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/lv.qm
 /usr/share/stellarium/translations/stellarium-planetary-features/mk.qm
@@ -2656,6 +2658,7 @@ popd
 /usr/share/stellarium/translations/stellarium-remotecontrol/ku.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/ky.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/la.qm
+/usr/share/stellarium/translations/stellarium-remotecontrol/lb.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/lt.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/lv.qm
 /usr/share/stellarium/translations/stellarium-remotecontrol/mk.qm
@@ -2746,6 +2749,7 @@ popd
 /usr/share/stellarium/translations/stellarium-scripts/ku.qm
 /usr/share/stellarium/translations/stellarium-scripts/ky.qm
 /usr/share/stellarium/translations/stellarium-scripts/la.qm
+/usr/share/stellarium/translations/stellarium-scripts/lb.qm
 /usr/share/stellarium/translations/stellarium-scripts/lt.qm
 /usr/share/stellarium/translations/stellarium-scripts/lv.qm
 /usr/share/stellarium/translations/stellarium-scripts/mk.qm
@@ -2848,6 +2852,7 @@ popd
 /usr/share/stellarium/translations/stellarium-skycultures/ku.qm
 /usr/share/stellarium/translations/stellarium-skycultures/ky.qm
 /usr/share/stellarium/translations/stellarium-skycultures/la.qm
+/usr/share/stellarium/translations/stellarium-skycultures/lb.qm
 /usr/share/stellarium/translations/stellarium-skycultures/lt.qm
 /usr/share/stellarium/translations/stellarium-skycultures/lv.qm
 /usr/share/stellarium/translations/stellarium-skycultures/mk.qm
@@ -2954,6 +2959,7 @@ popd
 /usr/share/stellarium/translations/stellarium/ku.qm
 /usr/share/stellarium/translations/stellarium/ky.qm
 /usr/share/stellarium/translations/stellarium/la.qm
+/usr/share/stellarium/translations/stellarium/lb.qm
 /usr/share/stellarium/translations/stellarium/lt.qm
 /usr/share/stellarium/translations/stellarium/lv.qm
 /usr/share/stellarium/translations/stellarium/mk.qm
