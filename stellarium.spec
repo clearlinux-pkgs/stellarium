@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x9380E47C0374E169 (alex.v.wolf@gmail.com)
 #
 Name     : stellarium
-Version  : 0.20.1
-Release  : 8
-URL      : https://github.com/Stellarium/stellarium/releases/download/v0.20.1/stellarium-0.20.1.tar.gz
-Source0  : https://github.com/Stellarium/stellarium/releases/download/v0.20.1/stellarium-0.20.1.tar.gz
-Source1  : https://github.com/Stellarium/stellarium/releases/download/v0.20.1/stellarium-0.20.1.tar.gz.asc
+Version  : 0.20.3
+Release  : 9
+URL      : https://github.com/Stellarium/stellarium/releases/download/v0.20.3/stellarium-0.20.3.tar.gz
+Source0  : https://github.com/Stellarium/stellarium/releases/download/v0.20.3/stellarium-0.20.3.tar.gz
+Source1  : https://github.com/Stellarium/stellarium/releases/download/v0.20.3/stellarium-0.20.3.tar.gz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : BSD-3-Clause GPL-2.0 LGPL-2.1 SGI-B-2.0
@@ -33,7 +33,14 @@ BuildRequires : pkgconfig(Qt5Script)
 BuildRequires : pkgconfig(Qt5SerialPort)
 BuildRequires : pkgconfig(gl)
 BuildRequires : python3
+BuildRequires : qtbase-dev
+BuildRequires : qtlocation-dev
+BuildRequires : qtmultimedia-dev
+BuildRequires : qtscript-dev
+BuildRequires : qtserialport-dev
+BuildRequires : qtsvg-dev
 BuildRequires : qttools-dev
+BuildRequires : qtxmlpatterns-dev
 BuildRequires : zlib-dev
 
 %description
@@ -75,15 +82,15 @@ man components for the stellarium package.
 
 
 %prep
-%setup -q -n stellarium-0.20.1
-cd %{_builddir}/stellarium-0.20.1
+%setup -q -n stellarium-0.20.3
+cd %{_builddir}/stellarium-0.20.3
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1587400751
+export SOURCE_DATE_EPOCH=1601315064
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -92,40 +99,40 @@ export FCFLAGS="$FFLAGS -fno-lto "
 export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
 %cmake .. -DBUILD_SHARED_LIBS=0
-make  %{?_smp_mflags}  VERBOSE=1
+make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1587400751
+export SOURCE_DATE_EPOCH=1601315064
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/stellarium
-cp %{_builddir}/stellarium-0.20.1/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/AngleMeasure/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/ArchaeoLines/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/CompassMarks/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/EquationOfTime/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/Exoplanets/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/HelloStelModule/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/MeteorShowers/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/NavStars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/Novae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/Oculars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/PointerCoordinates/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/Pulsars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/Quasars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/RemoteControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/Satellites/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/Scenery3d/COPYING %{buildroot}/usr/share/package-licenses/stellarium/dfac199a7539a404407098a2541b9482279f690d
-cp %{_builddir}/stellarium-0.20.1/plugins/SimpleDrawLine/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/Supernovae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/TelescopeControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/plugins/TextUserInterface/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
-cp %{_builddir}/stellarium-0.20.1/src/external/glues_stel/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/a9fbc5ee6bc3b991c1fee735b96204001a8d64fe
-cp %{_builddir}/stellarium-0.20.1/src/external/libindi/COPYING.BSD %{buildroot}/usr/share/package-licenses/stellarium/c237597680be0db41fc5ca7249bc540b8825371e
-cp %{_builddir}/stellarium-0.20.1/src/external/libindi/COPYING.GPL %{buildroot}/usr/share/package-licenses/stellarium/4cc77b90af91e615a64ae04893fdffa7939db84c
-cp %{_builddir}/stellarium-0.20.1/src/external/libindi/COPYING.LGPL %{buildroot}/usr/share/package-licenses/stellarium/01a6b4bf79aca9b556822601186afab86e8c4fbf
-cp %{_builddir}/stellarium-0.20.1/src/external/libindi/COPYRIGHT %{buildroot}/usr/share/package-licenses/stellarium/85c02e0cb8c0aaac8a3f3eed04bc1a097e145883
-cp %{_builddir}/stellarium-0.20.1/src/external/libindi/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/597bf5f9c0904bd6c48ac3a3527685818d11246d
+cp %{_builddir}/stellarium-0.20.3/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/AngleMeasure/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/ArchaeoLines/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/CompassMarks/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/EquationOfTime/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/Exoplanets/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/HelloStelModule/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/MeteorShowers/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/NavStars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/Novae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/Oculars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/PointerCoordinates/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/Pulsars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/Quasars/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/RemoteControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/Satellites/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/Scenery3d/COPYING %{buildroot}/usr/share/package-licenses/stellarium/dfac199a7539a404407098a2541b9482279f690d
+cp %{_builddir}/stellarium-0.20.3/plugins/SimpleDrawLine/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/Supernovae/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/TelescopeControl/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/plugins/TextUserInterface/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499
+cp %{_builddir}/stellarium-0.20.3/src/external/glues_stel/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/a9fbc5ee6bc3b991c1fee735b96204001a8d64fe
+cp %{_builddir}/stellarium-0.20.3/src/external/libindi/COPYING.BSD %{buildroot}/usr/share/package-licenses/stellarium/c237597680be0db41fc5ca7249bc540b8825371e
+cp %{_builddir}/stellarium-0.20.3/src/external/libindi/COPYING.GPL %{buildroot}/usr/share/package-licenses/stellarium/4cc77b90af91e615a64ae04893fdffa7939db84c
+cp %{_builddir}/stellarium-0.20.3/src/external/libindi/COPYING.LGPL %{buildroot}/usr/share/package-licenses/stellarium/01a6b4bf79aca9b556822601186afab86e8c4fbf
+cp %{_builddir}/stellarium-0.20.3/src/external/libindi/COPYRIGHT %{buildroot}/usr/share/package-licenses/stellarium/85c02e0cb8c0aaac8a3f3eed04bc1a097e145883
+cp %{_builddir}/stellarium-0.20.3/src/external/libindi/LICENSE %{buildroot}/usr/share/package-licenses/stellarium/597bf5f9c0904bd6c48ac3a3527685818d11246d
 pushd clr-build
 %make_install
 popd
@@ -191,6 +198,7 @@ popd
 /usr/share/stellarium/landscapes/garching/description.en.utf8
 /usr/share/stellarium/landscapes/garching/description.en_GB.utf8
 /usr/share/stellarium/landscapes/garching/description.es.utf8
+/usr/share/stellarium/landscapes/garching/description.fi.utf8
 /usr/share/stellarium/landscapes/garching/description.fr.utf8
 /usr/share/stellarium/landscapes/garching/description.gd.utf8
 /usr/share/stellarium/landscapes/garching/description.gl.utf8
@@ -201,6 +209,7 @@ popd
 /usr/share/stellarium/landscapes/garching/description.nb.utf8
 /usr/share/stellarium/landscapes/garching/description.nl.utf8
 /usr/share/stellarium/landscapes/garching/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/garching/description.ro.utf8
 /usr/share/stellarium/landscapes/garching/description.ru.utf8
 /usr/share/stellarium/landscapes/garching/description.sc.utf8
 /usr/share/stellarium/landscapes/garching/description.sk.utf8
@@ -216,12 +225,14 @@ popd
 /usr/share/stellarium/landscapes/garching/landscape.ini
 /usr/share/stellarium/landscapes/geneva/description.ar.utf8
 /usr/share/stellarium/landscapes/geneva/description.be.utf8
+/usr/share/stellarium/landscapes/geneva/description.bg.utf8
 /usr/share/stellarium/landscapes/geneva/description.bn.utf8
 /usr/share/stellarium/landscapes/geneva/description.cs.utf8
 /usr/share/stellarium/landscapes/geneva/description.de.utf8
 /usr/share/stellarium/landscapes/geneva/description.en.utf8
 /usr/share/stellarium/landscapes/geneva/description.en_GB.utf8
 /usr/share/stellarium/landscapes/geneva/description.es.utf8
+/usr/share/stellarium/landscapes/geneva/description.fi.utf8
 /usr/share/stellarium/landscapes/geneva/description.fr.utf8
 /usr/share/stellarium/landscapes/geneva/description.gd.utf8
 /usr/share/stellarium/landscapes/geneva/description.gl.utf8
@@ -231,6 +242,7 @@ popd
 /usr/share/stellarium/landscapes/geneva/description.ko.utf8
 /usr/share/stellarium/landscapes/geneva/description.nl.utf8
 /usr/share/stellarium/landscapes/geneva/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/geneva/description.ro.utf8
 /usr/share/stellarium/landscapes/geneva/description.ru.utf8
 /usr/share/stellarium/landscapes/geneva/description.sk.utf8
 /usr/share/stellarium/landscapes/geneva/description.uk.utf8
@@ -240,12 +252,14 @@ popd
 /usr/share/stellarium/landscapes/geneva/landscape.ini
 /usr/share/stellarium/landscapes/grossmugl/description.ar.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.be.utf8
+/usr/share/stellarium/landscapes/grossmugl/description.bg.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.bn.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.cs.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.de.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.en.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.en_GB.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.es.utf8
+/usr/share/stellarium/landscapes/grossmugl/description.fi.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.fr.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.gd.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.gl.utf8
@@ -255,6 +269,7 @@ popd
 /usr/share/stellarium/landscapes/grossmugl/description.ko.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.nl.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/grossmugl/description.ro.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.ru.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.sk.utf8
 /usr/share/stellarium/landscapes/grossmugl/description.uk.utf8
@@ -279,6 +294,7 @@ popd
 /usr/share/stellarium/landscapes/guereins/description.en.utf8
 /usr/share/stellarium/landscapes/guereins/description.en_GB.utf8
 /usr/share/stellarium/landscapes/guereins/description.es.utf8
+/usr/share/stellarium/landscapes/guereins/description.fi.utf8
 /usr/share/stellarium/landscapes/guereins/description.fr.utf8
 /usr/share/stellarium/landscapes/guereins/description.gd.utf8
 /usr/share/stellarium/landscapes/guereins/description.gl.utf8
@@ -289,6 +305,7 @@ popd
 /usr/share/stellarium/landscapes/guereins/description.nb.utf8
 /usr/share/stellarium/landscapes/guereins/description.nl.utf8
 /usr/share/stellarium/landscapes/guereins/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/guereins/description.ro.utf8
 /usr/share/stellarium/landscapes/guereins/description.ru.utf8
 /usr/share/stellarium/landscapes/guereins/description.sc.utf8
 /usr/share/stellarium/landscapes/guereins/description.sk.utf8
@@ -317,16 +334,17 @@ popd
 /usr/share/stellarium/landscapes/hurricane/description.en.utf8
 /usr/share/stellarium/landscapes/hurricane/description.en_GB.utf8
 /usr/share/stellarium/landscapes/hurricane/description.es.utf8
+/usr/share/stellarium/landscapes/hurricane/description.fi.utf8
 /usr/share/stellarium/landscapes/hurricane/description.fr.utf8
 /usr/share/stellarium/landscapes/hurricane/description.gd.utf8
 /usr/share/stellarium/landscapes/hurricane/description.gl.utf8
 /usr/share/stellarium/landscapes/hurricane/description.hr.utf8
 /usr/share/stellarium/landscapes/hurricane/description.hu.utf8
 /usr/share/stellarium/landscapes/hurricane/description.id.utf8
-/usr/share/stellarium/landscapes/hurricane/description.ko.utf8
 /usr/share/stellarium/landscapes/hurricane/description.nb.utf8
 /usr/share/stellarium/landscapes/hurricane/description.nl.utf8
 /usr/share/stellarium/landscapes/hurricane/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/hurricane/description.ro.utf8
 /usr/share/stellarium/landscapes/hurricane/description.ru.utf8
 /usr/share/stellarium/landscapes/hurricane/description.sc.utf8
 /usr/share/stellarium/landscapes/hurricane/description.sk.utf8
@@ -347,21 +365,23 @@ popd
 /usr/share/stellarium/landscapes/hurricane/landscape.ini
 /usr/share/stellarium/landscapes/jupiter/description.ar.utf8
 /usr/share/stellarium/landscapes/jupiter/description.be.utf8
+/usr/share/stellarium/landscapes/jupiter/description.bg.utf8
 /usr/share/stellarium/landscapes/jupiter/description.bn.utf8
 /usr/share/stellarium/landscapes/jupiter/description.cs.utf8
 /usr/share/stellarium/landscapes/jupiter/description.de.utf8
 /usr/share/stellarium/landscapes/jupiter/description.en.utf8
 /usr/share/stellarium/landscapes/jupiter/description.en_GB.utf8
 /usr/share/stellarium/landscapes/jupiter/description.es.utf8
+/usr/share/stellarium/landscapes/jupiter/description.fi.utf8
 /usr/share/stellarium/landscapes/jupiter/description.fr.utf8
 /usr/share/stellarium/landscapes/jupiter/description.gd.utf8
 /usr/share/stellarium/landscapes/jupiter/description.gl.utf8
 /usr/share/stellarium/landscapes/jupiter/description.hr.utf8
 /usr/share/stellarium/landscapes/jupiter/description.hu.utf8
 /usr/share/stellarium/landscapes/jupiter/description.id.utf8
-/usr/share/stellarium/landscapes/jupiter/description.ko.utf8
 /usr/share/stellarium/landscapes/jupiter/description.nl.utf8
 /usr/share/stellarium/landscapes/jupiter/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/jupiter/description.ro.utf8
 /usr/share/stellarium/landscapes/jupiter/description.ru.utf8
 /usr/share/stellarium/landscapes/jupiter/description.sc.utf8
 /usr/share/stellarium/landscapes/jupiter/description.sk.utf8
@@ -380,16 +400,17 @@ popd
 /usr/share/stellarium/landscapes/mars/description.en.utf8
 /usr/share/stellarium/landscapes/mars/description.en_GB.utf8
 /usr/share/stellarium/landscapes/mars/description.es.utf8
+/usr/share/stellarium/landscapes/mars/description.fi.utf8
 /usr/share/stellarium/landscapes/mars/description.fr.utf8
 /usr/share/stellarium/landscapes/mars/description.gd.utf8
 /usr/share/stellarium/landscapes/mars/description.gl.utf8
 /usr/share/stellarium/landscapes/mars/description.hr.utf8
 /usr/share/stellarium/landscapes/mars/description.hu.utf8
 /usr/share/stellarium/landscapes/mars/description.id.utf8
-/usr/share/stellarium/landscapes/mars/description.ko.utf8
 /usr/share/stellarium/landscapes/mars/description.nb.utf8
 /usr/share/stellarium/landscapes/mars/description.nl.utf8
 /usr/share/stellarium/landscapes/mars/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/mars/description.ro.utf8
 /usr/share/stellarium/landscapes/mars/description.ru.utf8
 /usr/share/stellarium/landscapes/mars/description.sc.utf8
 /usr/share/stellarium/landscapes/mars/description.sk.utf8
@@ -409,16 +430,17 @@ popd
 /usr/share/stellarium/landscapes/moon/description.en.utf8
 /usr/share/stellarium/landscapes/moon/description.en_GB.utf8
 /usr/share/stellarium/landscapes/moon/description.es.utf8
+/usr/share/stellarium/landscapes/moon/description.fi.utf8
 /usr/share/stellarium/landscapes/moon/description.fr.utf8
 /usr/share/stellarium/landscapes/moon/description.gd.utf8
 /usr/share/stellarium/landscapes/moon/description.gl.utf8
 /usr/share/stellarium/landscapes/moon/description.hr.utf8
 /usr/share/stellarium/landscapes/moon/description.hu.utf8
 /usr/share/stellarium/landscapes/moon/description.id.utf8
-/usr/share/stellarium/landscapes/moon/description.ko.utf8
 /usr/share/stellarium/landscapes/moon/description.nb.utf8
 /usr/share/stellarium/landscapes/moon/description.nl.utf8
 /usr/share/stellarium/landscapes/moon/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/moon/description.ro.utf8
 /usr/share/stellarium/landscapes/moon/description.ru.utf8
 /usr/share/stellarium/landscapes/moon/description.sc.utf8
 /usr/share/stellarium/landscapes/moon/description.sk.utf8
@@ -429,21 +451,23 @@ popd
 /usr/share/stellarium/landscapes/moon/landscape.ini
 /usr/share/stellarium/landscapes/neptune/description.ar.utf8
 /usr/share/stellarium/landscapes/neptune/description.be.utf8
+/usr/share/stellarium/landscapes/neptune/description.bg.utf8
 /usr/share/stellarium/landscapes/neptune/description.bn.utf8
 /usr/share/stellarium/landscapes/neptune/description.cs.utf8
 /usr/share/stellarium/landscapes/neptune/description.de.utf8
 /usr/share/stellarium/landscapes/neptune/description.en.utf8
 /usr/share/stellarium/landscapes/neptune/description.en_GB.utf8
 /usr/share/stellarium/landscapes/neptune/description.es.utf8
+/usr/share/stellarium/landscapes/neptune/description.fi.utf8
 /usr/share/stellarium/landscapes/neptune/description.fr.utf8
 /usr/share/stellarium/landscapes/neptune/description.gd.utf8
 /usr/share/stellarium/landscapes/neptune/description.gl.utf8
 /usr/share/stellarium/landscapes/neptune/description.hr.utf8
 /usr/share/stellarium/landscapes/neptune/description.hu.utf8
 /usr/share/stellarium/landscapes/neptune/description.id.utf8
-/usr/share/stellarium/landscapes/neptune/description.ko.utf8
 /usr/share/stellarium/landscapes/neptune/description.nl.utf8
 /usr/share/stellarium/landscapes/neptune/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/neptune/description.ro.utf8
 /usr/share/stellarium/landscapes/neptune/description.ru.utf8
 /usr/share/stellarium/landscapes/neptune/description.sc.utf8
 /usr/share/stellarium/landscapes/neptune/description.sk.utf8
@@ -462,6 +486,7 @@ popd
 /usr/share/stellarium/landscapes/ocean/description.en.utf8
 /usr/share/stellarium/landscapes/ocean/description.en_GB.utf8
 /usr/share/stellarium/landscapes/ocean/description.es.utf8
+/usr/share/stellarium/landscapes/ocean/description.fi.utf8
 /usr/share/stellarium/landscapes/ocean/description.fr.utf8
 /usr/share/stellarium/landscapes/ocean/description.gd.utf8
 /usr/share/stellarium/landscapes/ocean/description.gl.utf8
@@ -472,6 +497,7 @@ popd
 /usr/share/stellarium/landscapes/ocean/description.nb.utf8
 /usr/share/stellarium/landscapes/ocean/description.nl.utf8
 /usr/share/stellarium/landscapes/ocean/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/ocean/description.ro.utf8
 /usr/share/stellarium/landscapes/ocean/description.ru.utf8
 /usr/share/stellarium/landscapes/ocean/description.sc.utf8
 /usr/share/stellarium/landscapes/ocean/description.sk.utf8
@@ -499,6 +525,7 @@ popd
 /usr/share/stellarium/landscapes/saturn/description.en.utf8
 /usr/share/stellarium/landscapes/saturn/description.en_GB.utf8
 /usr/share/stellarium/landscapes/saturn/description.es.utf8
+/usr/share/stellarium/landscapes/saturn/description.fi.utf8
 /usr/share/stellarium/landscapes/saturn/description.fr.utf8
 /usr/share/stellarium/landscapes/saturn/description.gd.utf8
 /usr/share/stellarium/landscapes/saturn/description.gl.utf8
@@ -509,6 +536,7 @@ popd
 /usr/share/stellarium/landscapes/saturn/description.nb.utf8
 /usr/share/stellarium/landscapes/saturn/description.nl.utf8
 /usr/share/stellarium/landscapes/saturn/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/saturn/description.ro.utf8
 /usr/share/stellarium/landscapes/saturn/description.ru.utf8
 /usr/share/stellarium/landscapes/saturn/description.sc.utf8
 /usr/share/stellarium/landscapes/saturn/description.sk.utf8
@@ -518,18 +546,22 @@ popd
 /usr/share/stellarium/landscapes/saturn/description.zh_TW.utf8
 /usr/share/stellarium/landscapes/saturn/landscape.ini
 /usr/share/stellarium/landscapes/saturn/saturn-256.png
+/usr/share/stellarium/landscapes/sun/description.ar.utf8
+/usr/share/stellarium/landscapes/sun/description.bg.utf8
 /usr/share/stellarium/landscapes/sun/description.bn.utf8
 /usr/share/stellarium/landscapes/sun/description.cs.utf8
 /usr/share/stellarium/landscapes/sun/description.de.utf8
 /usr/share/stellarium/landscapes/sun/description.en.utf8
 /usr/share/stellarium/landscapes/sun/description.en_GB.utf8
 /usr/share/stellarium/landscapes/sun/description.es.utf8
+/usr/share/stellarium/landscapes/sun/description.fi.utf8
 /usr/share/stellarium/landscapes/sun/description.fr.utf8
 /usr/share/stellarium/landscapes/sun/description.gl.utf8
 /usr/share/stellarium/landscapes/sun/description.hr.utf8
 /usr/share/stellarium/landscapes/sun/description.id.utf8
 /usr/share/stellarium/landscapes/sun/description.ko.utf8
 /usr/share/stellarium/landscapes/sun/description.nl.utf8
+/usr/share/stellarium/landscapes/sun/description.ro.utf8
 /usr/share/stellarium/landscapes/sun/description.ru.utf8
 /usr/share/stellarium/landscapes/sun/description.sc.utf8
 /usr/share/stellarium/landscapes/sun/description.sk.utf8
@@ -548,6 +580,7 @@ popd
 /usr/share/stellarium/landscapes/trees/description.en.utf8
 /usr/share/stellarium/landscapes/trees/description.en_GB.utf8
 /usr/share/stellarium/landscapes/trees/description.es.utf8
+/usr/share/stellarium/landscapes/trees/description.fi.utf8
 /usr/share/stellarium/landscapes/trees/description.fr.utf8
 /usr/share/stellarium/landscapes/trees/description.gd.utf8
 /usr/share/stellarium/landscapes/trees/description.gl.utf8
@@ -558,6 +591,7 @@ popd
 /usr/share/stellarium/landscapes/trees/description.nb.utf8
 /usr/share/stellarium/landscapes/trees/description.nl.utf8
 /usr/share/stellarium/landscapes/trees/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/trees/description.ro.utf8
 /usr/share/stellarium/landscapes/trees/description.ru.utf8
 /usr/share/stellarium/landscapes/trees/description.sc.utf8
 /usr/share/stellarium/landscapes/trees/description.sk.utf8
@@ -571,21 +605,23 @@ popd
 /usr/share/stellarium/landscapes/trees/trees_illum_512.png
 /usr/share/stellarium/landscapes/uranus/description.ar.utf8
 /usr/share/stellarium/landscapes/uranus/description.be.utf8
+/usr/share/stellarium/landscapes/uranus/description.bg.utf8
 /usr/share/stellarium/landscapes/uranus/description.bn.utf8
 /usr/share/stellarium/landscapes/uranus/description.cs.utf8
 /usr/share/stellarium/landscapes/uranus/description.de.utf8
 /usr/share/stellarium/landscapes/uranus/description.en.utf8
 /usr/share/stellarium/landscapes/uranus/description.en_GB.utf8
 /usr/share/stellarium/landscapes/uranus/description.es.utf8
+/usr/share/stellarium/landscapes/uranus/description.fi.utf8
 /usr/share/stellarium/landscapes/uranus/description.fr.utf8
 /usr/share/stellarium/landscapes/uranus/description.gd.utf8
 /usr/share/stellarium/landscapes/uranus/description.gl.utf8
 /usr/share/stellarium/landscapes/uranus/description.hr.utf8
 /usr/share/stellarium/landscapes/uranus/description.hu.utf8
 /usr/share/stellarium/landscapes/uranus/description.id.utf8
-/usr/share/stellarium/landscapes/uranus/description.ko.utf8
 /usr/share/stellarium/landscapes/uranus/description.nl.utf8
 /usr/share/stellarium/landscapes/uranus/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/uranus/description.ro.utf8
 /usr/share/stellarium/landscapes/uranus/description.ru.utf8
 /usr/share/stellarium/landscapes/uranus/description.sc.utf8
 /usr/share/stellarium/landscapes/uranus/description.sk.utf8
@@ -597,21 +633,23 @@ popd
 /usr/share/stellarium/landscapes/uranus/uranus-256.png
 /usr/share/stellarium/landscapes/zero/description.ar.utf8
 /usr/share/stellarium/landscapes/zero/description.be.utf8
+/usr/share/stellarium/landscapes/zero/description.bg.utf8
 /usr/share/stellarium/landscapes/zero/description.bn.utf8
 /usr/share/stellarium/landscapes/zero/description.cs.utf8
 /usr/share/stellarium/landscapes/zero/description.de.utf8
 /usr/share/stellarium/landscapes/zero/description.en.utf8
 /usr/share/stellarium/landscapes/zero/description.en_GB.utf8
 /usr/share/stellarium/landscapes/zero/description.es.utf8
+/usr/share/stellarium/landscapes/zero/description.fi.utf8
 /usr/share/stellarium/landscapes/zero/description.fr.utf8
 /usr/share/stellarium/landscapes/zero/description.gd.utf8
 /usr/share/stellarium/landscapes/zero/description.gl.utf8
 /usr/share/stellarium/landscapes/zero/description.hr.utf8
 /usr/share/stellarium/landscapes/zero/description.hu.utf8
 /usr/share/stellarium/landscapes/zero/description.id.utf8
-/usr/share/stellarium/landscapes/zero/description.ko.utf8
 /usr/share/stellarium/landscapes/zero/description.nl.utf8
 /usr/share/stellarium/landscapes/zero/description.pt_BR.utf8
+/usr/share/stellarium/landscapes/zero/description.ro.utf8
 /usr/share/stellarium/landscapes/zero/description.ru.utf8
 /usr/share/stellarium/landscapes/zero/description.sc.utf8
 /usr/share/stellarium/landscapes/zero/description.sk.utf8
@@ -1081,7 +1119,7 @@ popd
 /usr/share/stellarium/nebulae/default/n6539.png
 /usr/share/stellarium/nebulae/default/n654.png
 /usr/share/stellarium/nebulae/default/n6541-dss.png
-/usr/share/stellarium/nebulae/default/n6543kepler.png
+/usr/share/stellarium/nebulae/default/n6543.png
 /usr/share/stellarium/nebulae/default/n6544.png
 /usr/share/stellarium/nebulae/default/n6553.png
 /usr/share/stellarium/nebulae/default/n6563.png
@@ -1334,6 +1372,8 @@ popd
 /usr/share/stellarium/skycultures/almagest/constellationship.fab
 /usr/share/stellarium/skycultures/almagest/description.de.utf8
 /usr/share/stellarium/skycultures/almagest/description.en.utf8
+/usr/share/stellarium/skycultures/almagest/description.ja.utf8
+/usr/share/stellarium/skycultures/almagest/description.nl.utf8
 /usr/share/stellarium/skycultures/almagest/dso_names.fab
 /usr/share/stellarium/skycultures/almagest/info.ini
 /usr/share/stellarium/skycultures/almagest/planet_names.fab
@@ -1341,6 +1381,8 @@ popd
 /usr/share/stellarium/skycultures/anutan/constellation_names.eng.fab
 /usr/share/stellarium/skycultures/anutan/constellationship.fab
 /usr/share/stellarium/skycultures/anutan/description.en.utf8
+/usr/share/stellarium/skycultures/anutan/description.ja.utf8
+/usr/share/stellarium/skycultures/anutan/description.nl.utf8
 /usr/share/stellarium/skycultures/anutan/description.uk.utf8
 /usr/share/stellarium/skycultures/anutan/dso_names.fab
 /usr/share/stellarium/skycultures/anutan/info.ini
@@ -1405,6 +1447,8 @@ popd
 /usr/share/stellarium/skycultures/arabic/description.en.utf8
 /usr/share/stellarium/skycultures/arabic/description.fr.utf8
 /usr/share/stellarium/skycultures/arabic/description.hu.utf8
+/usr/share/stellarium/skycultures/arabic/description.ja.utf8
+/usr/share/stellarium/skycultures/arabic/description.nl.utf8
 /usr/share/stellarium/skycultures/arabic/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/arabic/description.ru.utf8
 /usr/share/stellarium/skycultures/arabic/description.uk.utf8
@@ -1419,6 +1463,7 @@ popd
 /usr/share/stellarium/skycultures/arabic_moon_stations/description.be.utf8
 /usr/share/stellarium/skycultures/arabic_moon_stations/description.bn.utf8
 /usr/share/stellarium/skycultures/arabic_moon_stations/description.en.utf8
+/usr/share/stellarium/skycultures/arabic_moon_stations/description.nl.utf8
 /usr/share/stellarium/skycultures/arabic_moon_stations/description.ru.utf8
 /usr/share/stellarium/skycultures/arabic_moon_stations/description.uk.utf8
 /usr/share/stellarium/skycultures/arabic_moon_stations/description.zh_CN.utf8
@@ -1446,6 +1491,8 @@ popd
 /usr/share/stellarium/skycultures/aztec/description.es.utf8
 /usr/share/stellarium/skycultures/aztec/description.fr.utf8
 /usr/share/stellarium/skycultures/aztec/description.hu.utf8
+/usr/share/stellarium/skycultures/aztec/description.ja.utf8
+/usr/share/stellarium/skycultures/aztec/description.nl.utf8
 /usr/share/stellarium/skycultures/aztec/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/aztec/description.ru.utf8
 /usr/share/stellarium/skycultures/aztec/description.uk.utf8
@@ -1472,6 +1519,8 @@ popd
 /usr/share/stellarium/skycultures/belarusian/description.bn.utf8
 /usr/share/stellarium/skycultures/belarusian/description.en.utf8
 /usr/share/stellarium/skycultures/belarusian/description.fr.utf8
+/usr/share/stellarium/skycultures/belarusian/description.ja.utf8
+/usr/share/stellarium/skycultures/belarusian/description.nl.utf8
 /usr/share/stellarium/skycultures/belarusian/description.uk.utf8
 /usr/share/stellarium/skycultures/belarusian/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/belarusian/description.zh_HK.utf8
@@ -1511,9 +1560,10 @@ popd
 /usr/share/stellarium/skycultures/boorong/description.de.utf8
 /usr/share/stellarium/skycultures/boorong/description.en.utf8
 /usr/share/stellarium/skycultures/boorong/description.hu.utf8
+/usr/share/stellarium/skycultures/boorong/description.ja.utf8
+/usr/share/stellarium/skycultures/boorong/description.nl.utf8
 /usr/share/stellarium/skycultures/boorong/description.ru.utf8
 /usr/share/stellarium/skycultures/boorong/description.uk.utf8
-/usr/share/stellarium/skycultures/boorong/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/boorong/description.zh_HK.utf8
 /usr/share/stellarium/skycultures/boorong/description.zh_TW.utf8
 /usr/share/stellarium/skycultures/boorong/djuit.png
@@ -1552,6 +1602,8 @@ popd
 /usr/share/stellarium/skycultures/chinese/description.en.utf8
 /usr/share/stellarium/skycultures/chinese/description.fr.utf8
 /usr/share/stellarium/skycultures/chinese/description.it.utf8
+/usr/share/stellarium/skycultures/chinese/description.ja.utf8
+/usr/share/stellarium/skycultures/chinese/description.nl.utf8
 /usr/share/stellarium/skycultures/chinese/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/chinese/description.ru.utf8
 /usr/share/stellarium/skycultures/chinese/description.uk.utf8
@@ -1600,6 +1652,8 @@ popd
 /usr/share/stellarium/skycultures/chinese_contemporary/cygnus.png
 /usr/share/stellarium/skycultures/chinese_contemporary/delphinus.png
 /usr/share/stellarium/skycultures/chinese_contemporary/description.en.utf8
+/usr/share/stellarium/skycultures/chinese_contemporary/description.ja.utf8
+/usr/share/stellarium/skycultures/chinese_contemporary/description.nl.utf8
 /usr/share/stellarium/skycultures/chinese_contemporary/description.uk.utf8
 /usr/share/stellarium/skycultures/chinese_contemporary/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/chinese_contemporary/description.zh_HK.utf8
@@ -1665,6 +1719,8 @@ popd
 /usr/share/stellarium/skycultures/chinese_medieval/constellation_names.zh_CN.fab
 /usr/share/stellarium/skycultures/chinese_medieval/constellationship.fab
 /usr/share/stellarium/skycultures/chinese_medieval/description.en.utf8
+/usr/share/stellarium/skycultures/chinese_medieval/description.ja.utf8
+/usr/share/stellarium/skycultures/chinese_medieval/description.nl.utf8
 /usr/share/stellarium/skycultures/chinese_medieval/description.uk.utf8
 /usr/share/stellarium/skycultures/chinese_medieval/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/chinese_medieval/description.zh_HK.utf8
@@ -1685,6 +1741,8 @@ popd
 /usr/share/stellarium/skycultures/dakota/description.be.utf8
 /usr/share/stellarium/skycultures/dakota/description.bn.utf8
 /usr/share/stellarium/skycultures/dakota/description.en.utf8
+/usr/share/stellarium/skycultures/dakota/description.ja.utf8
+/usr/share/stellarium/skycultures/dakota/description.nl.utf8
 /usr/share/stellarium/skycultures/dakota/description.uk.utf8
 /usr/share/stellarium/skycultures/dakota/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/dakota/description.zh_HK.utf8
@@ -1714,7 +1772,9 @@ popd
 /usr/share/stellarium/skycultures/egyptian/description.fr.utf8
 /usr/share/stellarium/skycultures/egyptian/description.hu.utf8
 /usr/share/stellarium/skycultures/egyptian/description.it.utf8
+/usr/share/stellarium/skycultures/egyptian/description.ja.utf8
 /usr/share/stellarium/skycultures/egyptian/description.nb.utf8
+/usr/share/stellarium/skycultures/egyptian/description.nl.utf8
 /usr/share/stellarium/skycultures/egyptian/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/egyptian/description.ru.utf8
 /usr/share/stellarium/skycultures/egyptian/description.uk.utf8
@@ -1728,6 +1788,8 @@ popd
 /usr/share/stellarium/skycultures/hawaiian_starlines/constellationsart.fab
 /usr/share/stellarium/skycultures/hawaiian_starlines/constellationship.fab
 /usr/share/stellarium/skycultures/hawaiian_starlines/description.en.utf8
+/usr/share/stellarium/skycultures/hawaiian_starlines/description.ja.utf8
+/usr/share/stellarium/skycultures/hawaiian_starlines/description.nl.utf8
 /usr/share/stellarium/skycultures/hawaiian_starlines/description.uk.utf8
 /usr/share/stellarium/skycultures/hawaiian_starlines/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/hawaiian_starlines/description.zh_HK.utf8
@@ -1745,9 +1807,15 @@ popd
 /usr/share/stellarium/skycultures/hawaiian_starlines/star_names.fab
 /usr/share/stellarium/skycultures/hawaiian_starlines/waa.png
 /usr/share/stellarium/skycultures/hawaiian_starlines/waa2.png
+/usr/share/stellarium/skycultures/indian/aquarius.png
+/usr/share/stellarium/skycultures/indian/aries.png
+/usr/share/stellarium/skycultures/indian/arrow.png
 /usr/share/stellarium/skycultures/indian/asterism_lines.fab
 /usr/share/stellarium/skycultures/indian/asterism_names.eng.fab
+/usr/share/stellarium/skycultures/indian/cancer.png
+/usr/share/stellarium/skycultures/indian/canis-major.png
 /usr/share/stellarium/skycultures/indian/constellation_names.eng.fab
+/usr/share/stellarium/skycultures/indian/constellationsart.fab
 /usr/share/stellarium/skycultures/indian/constellationship.fab
 /usr/share/stellarium/skycultures/indian/description.ar.utf8
 /usr/share/stellarium/skycultures/indian/description.be.utf8
@@ -1756,15 +1824,39 @@ popd
 /usr/share/stellarium/skycultures/indian/description.de.utf8
 /usr/share/stellarium/skycultures/indian/description.en.utf8
 /usr/share/stellarium/skycultures/indian/description.fr.utf8
+/usr/share/stellarium/skycultures/indian/description.nl.utf8
 /usr/share/stellarium/skycultures/indian/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/indian/description.ru.utf8
 /usr/share/stellarium/skycultures/indian/description.uk.utf8
 /usr/share/stellarium/skycultures/indian/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/indian/description.zh_HK.utf8
 /usr/share/stellarium/skycultures/indian/description.zh_TW.utf8
+/usr/share/stellarium/skycultures/indian/dhaniShThA.png
+/usr/share/stellarium/skycultures/indian/gemini.png
+/usr/share/stellarium/skycultures/indian/hasta.png
+/usr/share/stellarium/skycultures/indian/hydra.png
 /usr/share/stellarium/skycultures/indian/info.ini
+/usr/share/stellarium/skycultures/indian/leo.png
+/usr/share/stellarium/skycultures/indian/libra.png
+/usr/share/stellarium/skycultures/indian/mRgashIrSha.png
+/usr/share/stellarium/skycultures/indian/mRgavyAdha.png
+/usr/share/stellarium/skycultures/indian/mUlam.png
+/usr/share/stellarium/skycultures/indian/makara.png
+/usr/share/stellarium/skycultures/indian/pisces.png
 /usr/share/stellarium/skycultures/indian/planet_names.fab
+/usr/share/stellarium/skycultures/indian/proShThapada.png
+/usr/share/stellarium/skycultures/indian/references.fab
+/usr/share/stellarium/skycultures/indian/sArathi.png
+/usr/share/stellarium/skycultures/indian/sagittarius.png
+/usr/share/stellarium/skycultures/indian/scorpius.png
+/usr/share/stellarium/skycultures/indian/shimshumAra.png
+/usr/share/stellarium/skycultures/indian/shravaNa.png
 /usr/share/stellarium/skycultures/indian/star_names.fab
+/usr/share/stellarium/skycultures/indian/taurus.png
+/usr/share/stellarium/skycultures/indian/trishanku.png
+/usr/share/stellarium/skycultures/indian/ursa-major.png
+/usr/share/stellarium/skycultures/indian/virgo.png
+/usr/share/stellarium/skycultures/indian/vishAkhA.png
 /usr/share/stellarium/skycultures/inuit/blubber-container.png
 /usr/share/stellarium/skycultures/inuit/breastbone.png
 /usr/share/stellarium/skycultures/inuit/caribou.png
@@ -1780,6 +1872,8 @@ popd
 /usr/share/stellarium/skycultures/inuit/description.fr.utf8
 /usr/share/stellarium/skycultures/inuit/description.hu.utf8
 /usr/share/stellarium/skycultures/inuit/description.it.utf8
+/usr/share/stellarium/skycultures/inuit/description.ja.utf8
+/usr/share/stellarium/skycultures/inuit/description.nl.utf8
 /usr/share/stellarium/skycultures/inuit/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/inuit/description.ru.utf8
 /usr/share/stellarium/skycultures/inuit/description.uk.utf8
@@ -1801,6 +1895,8 @@ popd
 /usr/share/stellarium/skycultures/japanese_moon_stations/description.be.utf8
 /usr/share/stellarium/skycultures/japanese_moon_stations/description.bn.utf8
 /usr/share/stellarium/skycultures/japanese_moon_stations/description.en.utf8
+/usr/share/stellarium/skycultures/japanese_moon_stations/description.ja.utf8
+/usr/share/stellarium/skycultures/japanese_moon_stations/description.nl.utf8
 /usr/share/stellarium/skycultures/japanese_moon_stations/description.uk.utf8
 /usr/share/stellarium/skycultures/japanese_moon_stations/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/japanese_moon_stations/description.zh_HK.utf8
@@ -1854,6 +1950,8 @@ popd
 /usr/share/stellarium/skycultures/kamilaroi/description.be.utf8
 /usr/share/stellarium/skycultures/kamilaroi/description.bn.utf8
 /usr/share/stellarium/skycultures/kamilaroi/description.en.utf8
+/usr/share/stellarium/skycultures/kamilaroi/description.ja.utf8
+/usr/share/stellarium/skycultures/kamilaroi/description.nl.utf8
 /usr/share/stellarium/skycultures/kamilaroi/description.uk.utf8
 /usr/share/stellarium/skycultures/kamilaroi/info.ini
 /usr/share/stellarium/skycultures/kamilaroi/seasonal_rules.fab
@@ -1868,6 +1966,8 @@ popd
 /usr/share/stellarium/skycultures/korean/description.en.utf8
 /usr/share/stellarium/skycultures/korean/description.fr.utf8
 /usr/share/stellarium/skycultures/korean/description.it.utf8
+/usr/share/stellarium/skycultures/korean/description.ja.utf8
+/usr/share/stellarium/skycultures/korean/description.nl.utf8
 /usr/share/stellarium/skycultures/korean/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/korean/description.ru.utf8
 /usr/share/stellarium/skycultures/korean/description.uk.utf8
@@ -1881,6 +1981,8 @@ popd
 /usr/share/stellarium/skycultures/lokono/constellationsart.fab
 /usr/share/stellarium/skycultures/lokono/constellationship.fab
 /usr/share/stellarium/skycultures/lokono/description.en.utf8
+/usr/share/stellarium/skycultures/lokono/description.ja.utf8
+/usr/share/stellarium/skycultures/lokono/description.nl.utf8
 /usr/share/stellarium/skycultures/lokono/description.uk.utf8
 /usr/share/stellarium/skycultures/lokono/info.ini
 /usr/share/stellarium/skycultures/lokono/lokono_map_1.png
@@ -1893,6 +1995,7 @@ popd
 /usr/share/stellarium/skycultures/macedonian/description.be.utf8
 /usr/share/stellarium/skycultures/macedonian/description.bn.utf8
 /usr/share/stellarium/skycultures/macedonian/description.en.utf8
+/usr/share/stellarium/skycultures/macedonian/description.nl.utf8
 /usr/share/stellarium/skycultures/macedonian/description.uk.utf8
 /usr/share/stellarium/skycultures/macedonian/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/macedonian/description.zh_HK.utf8
@@ -1928,6 +2031,8 @@ popd
 /usr/share/stellarium/skycultures/maori/description.fr.utf8
 /usr/share/stellarium/skycultures/maori/description.hu.utf8
 /usr/share/stellarium/skycultures/maori/description.it.utf8
+/usr/share/stellarium/skycultures/maori/description.ja.utf8
+/usr/share/stellarium/skycultures/maori/description.nl.utf8
 /usr/share/stellarium/skycultures/maori/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/maori/description.ru.utf8
 /usr/share/stellarium/skycultures/maori/description.uk.utf8
@@ -1972,6 +2077,8 @@ popd
 /usr/share/stellarium/skycultures/maya/constellationsart.fab
 /usr/share/stellarium/skycultures/maya/constellationship.fab
 /usr/share/stellarium/skycultures/maya/description.en.utf8
+/usr/share/stellarium/skycultures/maya/description.ja.utf8
+/usr/share/stellarium/skycultures/maya/description.nl.utf8
 /usr/share/stellarium/skycultures/maya/description.uk.utf8
 /usr/share/stellarium/skycultures/maya/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/maya/description1028.png
@@ -1988,6 +2095,7 @@ popd
 /usr/share/stellarium/skycultures/mongolian/description.en.utf8
 /usr/share/stellarium/skycultures/mongolian/description.fr.utf8
 /usr/share/stellarium/skycultures/mongolian/description.hu.utf8
+/usr/share/stellarium/skycultures/mongolian/description.nl.utf8
 /usr/share/stellarium/skycultures/mongolian/description.uk.utf8
 /usr/share/stellarium/skycultures/mongolian/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/mongolian/description.zh_HK.utf8
@@ -2001,6 +2109,7 @@ popd
 /usr/share/stellarium/skycultures/mulapin/constellationship.fab
 /usr/share/stellarium/skycultures/mulapin/description.de.utf8
 /usr/share/stellarium/skycultures/mulapin/description.en.utf8
+/usr/share/stellarium/skycultures/mulapin/description.nl.utf8
 /usr/share/stellarium/skycultures/mulapin/description.uk.utf8
 /usr/share/stellarium/skycultures/mulapin/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/mulapin/dso_names.fab
@@ -2017,6 +2126,7 @@ popd
 /usr/share/stellarium/skycultures/navajo/description.en.utf8
 /usr/share/stellarium/skycultures/navajo/description.fr.utf8
 /usr/share/stellarium/skycultures/navajo/description.it.utf8
+/usr/share/stellarium/skycultures/navajo/description.nl.utf8
 /usr/share/stellarium/skycultures/navajo/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/navajo/description.ru.utf8
 /usr/share/stellarium/skycultures/navajo/description.uk.utf8
@@ -2034,7 +2144,9 @@ popd
 /usr/share/stellarium/skycultures/norse/description.fr.utf8
 /usr/share/stellarium/skycultures/norse/description.is.utf8
 /usr/share/stellarium/skycultures/norse/description.it.utf8
+/usr/share/stellarium/skycultures/norse/description.ja.utf8
 /usr/share/stellarium/skycultures/norse/description.nb.utf8
+/usr/share/stellarium/skycultures/norse/description.nl.utf8
 /usr/share/stellarium/skycultures/norse/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/norse/description.ru.utf8
 /usr/share/stellarium/skycultures/norse/description.uk.utf8
@@ -2050,6 +2162,7 @@ popd
 /usr/share/stellarium/skycultures/northern_andes/constellationship.fab
 /usr/share/stellarium/skycultures/northern_andes/description.en.utf8
 /usr/share/stellarium/skycultures/northern_andes/description.es.utf8
+/usr/share/stellarium/skycultures/northern_andes/description.nl.utf8
 /usr/share/stellarium/skycultures/northern_andes/description.uk.utf8
 /usr/share/stellarium/skycultures/northern_andes/guerrero.png
 /usr/share/stellarium/skycultures/northern_andes/info.ini
@@ -2063,6 +2176,8 @@ popd
 /usr/share/stellarium/skycultures/ojibwe/description.be.utf8
 /usr/share/stellarium/skycultures/ojibwe/description.bn.utf8
 /usr/share/stellarium/skycultures/ojibwe/description.en.utf8
+/usr/share/stellarium/skycultures/ojibwe/description.ja.utf8
+/usr/share/stellarium/skycultures/ojibwe/description.nl.utf8
 /usr/share/stellarium/skycultures/ojibwe/description.uk.utf8
 /usr/share/stellarium/skycultures/ojibwe/exhaustedbather.png
 /usr/share/stellarium/skycultures/ojibwe/fisher.png
@@ -2105,6 +2220,8 @@ popd
 /usr/share/stellarium/skycultures/romanian/description.be.utf8
 /usr/share/stellarium/skycultures/romanian/description.bn.utf8
 /usr/share/stellarium/skycultures/romanian/description.en.utf8
+/usr/share/stellarium/skycultures/romanian/description.ja.utf8
+/usr/share/stellarium/skycultures/romanian/description.nl.utf8
 /usr/share/stellarium/skycultures/romanian/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/romanian/description.ro.utf8
 /usr/share/stellarium/skycultures/romanian/description.ru.utf8
@@ -2140,7 +2257,9 @@ popd
 /usr/share/stellarium/skycultures/sami/description.en.utf8
 /usr/share/stellarium/skycultures/sami/description.fr.utf8
 /usr/share/stellarium/skycultures/sami/description.hu.utf8
+/usr/share/stellarium/skycultures/sami/description.ja.utf8
 /usr/share/stellarium/skycultures/sami/description.nb.utf8
+/usr/share/stellarium/skycultures/sami/description.nl.utf8
 /usr/share/stellarium/skycultures/sami/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/sami/description.ru.utf8
 /usr/share/stellarium/skycultures/sami/description.uk.utf8
@@ -2157,6 +2276,8 @@ popd
 /usr/share/stellarium/skycultures/sardinian/description.en.utf8
 /usr/share/stellarium/skycultures/sardinian/description.fr.utf8
 /usr/share/stellarium/skycultures/sardinian/description.it.utf8
+/usr/share/stellarium/skycultures/sardinian/description.ja.utf8
+/usr/share/stellarium/skycultures/sardinian/description.nl.utf8
 /usr/share/stellarium/skycultures/sardinian/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/sardinian/description.ru.utf8
 /usr/share/stellarium/skycultures/sardinian/description.sc.utf8
@@ -2172,6 +2293,7 @@ popd
 /usr/share/stellarium/skycultures/seleucid/constellationship.fab
 /usr/share/stellarium/skycultures/seleucid/description.de.utf8
 /usr/share/stellarium/skycultures/seleucid/description.en.utf8
+/usr/share/stellarium/skycultures/seleucid/description.nl.utf8
 /usr/share/stellarium/skycultures/seleucid/description.uk.utf8
 /usr/share/stellarium/skycultures/seleucid/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/seleucid/dso_names.fab
@@ -2184,6 +2306,8 @@ popd
 /usr/share/stellarium/skycultures/siberian/description.bn.utf8
 /usr/share/stellarium/skycultures/siberian/description.en.utf8
 /usr/share/stellarium/skycultures/siberian/description.hu.utf8
+/usr/share/stellarium/skycultures/siberian/description.ja.utf8
+/usr/share/stellarium/skycultures/siberian/description.nl.utf8
 /usr/share/stellarium/skycultures/siberian/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/siberian/description.ru.utf8
 /usr/share/stellarium/skycultures/siberian/description.uk.utf8
@@ -2202,6 +2326,8 @@ popd
 /usr/share/stellarium/skycultures/tongan/description.de.utf8
 /usr/share/stellarium/skycultures/tongan/description.en.utf8
 /usr/share/stellarium/skycultures/tongan/description.fr.utf8
+/usr/share/stellarium/skycultures/tongan/description.ja.utf8
+/usr/share/stellarium/skycultures/tongan/description.nl.utf8
 /usr/share/stellarium/skycultures/tongan/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/tongan/description.ru.utf8
 /usr/share/stellarium/skycultures/tongan/description.uk.utf8
@@ -2218,6 +2344,8 @@ popd
 /usr/share/stellarium/skycultures/tukano/description.be.utf8
 /usr/share/stellarium/skycultures/tukano/description.bn.utf8
 /usr/share/stellarium/skycultures/tukano/description.en.utf8
+/usr/share/stellarium/skycultures/tukano/description.ja.utf8
+/usr/share/stellarium/skycultures/tukano/description.nl.utf8
 /usr/share/stellarium/skycultures/tukano/description.uk.utf8
 /usr/share/stellarium/skycultures/tukano/info.ini
 /usr/share/stellarium/skycultures/tukano/star_names.fab
@@ -2231,6 +2359,8 @@ popd
 /usr/share/stellarium/skycultures/tupi/description.en.utf8
 /usr/share/stellarium/skycultures/tupi/description.fr.utf8
 /usr/share/stellarium/skycultures/tupi/description.it.utf8
+/usr/share/stellarium/skycultures/tupi/description.ja.utf8
+/usr/share/stellarium/skycultures/tupi/description.nl.utf8
 /usr/share/stellarium/skycultures/tupi/description.pt_BR.utf8
 /usr/share/stellarium/skycultures/tupi/description.ru.utf8
 /usr/share/stellarium/skycultures/tupi/description.uk.utf8
@@ -2246,6 +2376,8 @@ popd
 /usr/share/stellarium/skycultures/vanuatu_netwar/description.cs.utf8
 /usr/share/stellarium/skycultures/vanuatu_netwar/description.en.utf8
 /usr/share/stellarium/skycultures/vanuatu_netwar/description.fr.utf8
+/usr/share/stellarium/skycultures/vanuatu_netwar/description.ja.utf8
+/usr/share/stellarium/skycultures/vanuatu_netwar/description.nl.utf8
 /usr/share/stellarium/skycultures/vanuatu_netwar/description.uk.utf8
 /usr/share/stellarium/skycultures/vanuatu_netwar/dso_names.fab
 /usr/share/stellarium/skycultures/vanuatu_netwar/info.ini
@@ -2305,6 +2437,7 @@ popd
 /usr/share/stellarium/skycultures/western/description.hu.utf8
 /usr/share/stellarium/skycultures/western/description.is.utf8
 /usr/share/stellarium/skycultures/western/description.it.utf8
+/usr/share/stellarium/skycultures/western/description.ja.utf8
 /usr/share/stellarium/skycultures/western/description.nb.utf8
 /usr/share/stellarium/skycultures/western/description.nl.utf8
 /usr/share/stellarium/skycultures/western/description.pt_BR.utf8
@@ -2372,6 +2505,8 @@ popd
 /usr/share/stellarium/skycultures/western_SnT/constellation_names.eng.fab
 /usr/share/stellarium/skycultures/western_SnT/constellationship.fab
 /usr/share/stellarium/skycultures/western_SnT/description.en.utf8
+/usr/share/stellarium/skycultures/western_SnT/description.ja.utf8
+/usr/share/stellarium/skycultures/western_SnT/description.nl.utf8
 /usr/share/stellarium/skycultures/western_SnT/description.uk.utf8
 /usr/share/stellarium/skycultures/western_SnT/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/western_SnT/description.zh_HK.utf8
@@ -2381,6 +2516,8 @@ popd
 /usr/share/stellarium/skycultures/western_hlad/constellation_names.eng.fab
 /usr/share/stellarium/skycultures/western_hlad/constellationship.fab
 /usr/share/stellarium/skycultures/western_hlad/description.en.utf8
+/usr/share/stellarium/skycultures/western_hlad/description.ja.utf8
+/usr/share/stellarium/skycultures/western_hlad/description.nl.utf8
 /usr/share/stellarium/skycultures/western_hlad/description.uk.utf8
 /usr/share/stellarium/skycultures/western_hlad/description.zh_CN.utf8
 /usr/share/stellarium/skycultures/western_hlad/description.zh_HK.utf8
@@ -2397,6 +2534,8 @@ popd
 /usr/share/stellarium/skycultures/western_rey/description.bn.utf8
 /usr/share/stellarium/skycultures/western_rey/description.de.utf8
 /usr/share/stellarium/skycultures/western_rey/description.en.utf8
+/usr/share/stellarium/skycultures/western_rey/description.ja.utf8
+/usr/share/stellarium/skycultures/western_rey/description.nl.utf8
 /usr/share/stellarium/skycultures/western_rey/description.ru.utf8
 /usr/share/stellarium/skycultures/western_rey/description.uk.utf8
 /usr/share/stellarium/skycultures/western_rey/description.zh_CN.utf8
@@ -2484,6 +2623,7 @@ popd
 /usr/share/stellarium/textures/neb_ocln.png
 /usr/share/stellarium/textures/neb_ocln_lrg.png
 /usr/share/stellarium/textures/neb_pnb.png
+/usr/share/stellarium/textures/neb_reg.png
 /usr/share/stellarium/textures/neptune.png
 /usr/share/stellarium/textures/neptune_rings.png
 /usr/share/stellarium/textures/nereid.png
@@ -3052,7 +3192,7 @@ popd
 /usr/share/stellarium/webroot/js/api/viewcontrol.js
 /usr/share/stellarium/webroot/js/api/viewoptions.js
 /usr/share/stellarium/webroot/js/globalize.js
-/usr/share/stellarium/webroot/js/jquery-3.4.1.js
+/usr/share/stellarium/webroot/js/jquery-3.5.1.js
 /usr/share/stellarium/webroot/js/jquery-ui.js
 /usr/share/stellarium/webroot/js/jquery.ui.touch-punch.js
 /usr/share/stellarium/webroot/js/main.js
