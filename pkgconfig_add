@@ -1,8 +1,9 @@
 # This file contains additional pkgconfig build requirements that did
 # not get picked up automatically. One name per line, no whitespace.
-gl
 Qt5Core
-Qt5SerialPort
-Qt5Script
 Qt5Multimedia
 Qt5Positioning
+Qt5Script
+Qt5SerialPort
+gl
+libindi
