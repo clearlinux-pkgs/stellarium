@@ -7,7 +7,7 @@
 #
 Name     : stellarium
 Version  : 23.2
-Release  : 21
+Release  : 22
 URL      : https://github.com/Stellarium/stellarium/releases/download/v23.2/stellarium-23.2.tar.xz
 Source0  : https://github.com/Stellarium/stellarium/releases/download/v23.2/stellarium-23.2.tar.xz
 Source1  : https://github.com/Stellarium/stellarium/releases/download/v23.2/stellarium-23.2.tar.xz.asc
@@ -94,7 +94,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1689806579
+export SOURCE_DATE_EPOCH=1689808419
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -108,7 +108,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1689806579
+export SOURCE_DATE_EPOCH=1689808419
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/stellarium
 cp %{_builddir}/stellarium-%{version}/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499 || :
