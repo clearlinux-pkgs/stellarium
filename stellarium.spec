@@ -7,7 +7,7 @@
 #
 Name     : stellarium
 Version  : 23.2
-Release  : 22
+Release  : 23
 URL      : https://github.com/Stellarium/stellarium/releases/download/v23.2/stellarium-23.2.tar.xz
 Source0  : https://github.com/Stellarium/stellarium/releases/download/v23.2/stellarium-23.2.tar.xz
 Source1  : https://github.com/Stellarium/stellarium/releases/download/v23.2/stellarium-23.2.tar.xz.asc
@@ -25,6 +25,7 @@ BuildRequires : doxygen
 BuildRequires : gettext-dev
 BuildRequires : git
 BuildRequires : glibc-dev
+BuildRequires : gpsd-dev
 BuildRequires : libnova-dev
 BuildRequires : pkg-config
 BuildRequires : pkgconfig(Qt5Core)
@@ -94,7 +95,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1689808419
+export SOURCE_DATE_EPOCH=1691706506
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -103,12 +104,14 @@ export FCFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-
 export FFLAGS="$FFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 export CXXFLAGS="$CXXFLAGS -fdebug-types-section -femit-struct-debug-baseonly -fno-lto -g1 -gno-column-info -gno-variable-location-views -gz=zstd "
 %cmake .. -DBUILD_SHARED_LIBS=0 \
--DENABLE_QT6=OFF
+-DENABLE_GPS=ON \
+-DENABLE_QT6=OFF \
+-DENABLE_SHOWMYSKY=ON
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1689808419
+export SOURCE_DATE_EPOCH=1691706506
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/stellarium
 cp %{_builddir}/stellarium-%{version}/COPYING %{buildroot}/usr/share/package-licenses/stellarium/88cd507eefb79a82b932c9f9ece012d1a58d0499 || :

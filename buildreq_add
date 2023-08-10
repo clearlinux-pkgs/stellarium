@@ -2,5 +2,6 @@
 # picked up automatically. One name per line, no whitespace.
 CalcMySky-dev
 QXlsx-dev
+gpsd-dev
 libnova-dev
 qtcharts-dev

@@ -11,6 +11,7 @@ libQt5SerialPort.so.5
 libQt5Widgets.so.5
 libc.so.6
 libgcc_s.so.1
+libgps.so.30
 libindiclient.so.2
 libm.so.6
 libstdc++.so.6
