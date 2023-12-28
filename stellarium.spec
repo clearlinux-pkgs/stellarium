@@ -7,7 +7,7 @@
 #
 Name     : stellarium
 Version  : 23.3
-Release  : 24
+Release  : 25
 URL      : https://github.com/Stellarium/stellarium/releases/download/v23.3/stellarium-23.3.tar.xz
 Source0  : https://github.com/Stellarium/stellarium/releases/download/v23.3/stellarium-23.3.tar.xz
 Source1  : https://github.com/Stellarium/stellarium/releases/download/v23.3/stellarium-23.3.tar.xz.asc
