@@ -1,7 +1,10 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+qt6charts-dev
+buildreq-qt6
+buildreq-kde
 CalcMySky-dev
 QXlsx-dev
-gpsd-dev
+indi-dev
+nlopt-dev
 libnova-dev
-qtcharts-dev

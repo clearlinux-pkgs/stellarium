@@ -1,0 +1,39 @@
+--- stellarium-24.4/plugins/TelescopeControl/src/INDI/INDIConnection.hpp~	2024-12-18 11:01:07.000000000 +0000
++++ stellarium-24.4/plugins/TelescopeControl/src/INDI/INDIConnection.hpp	2024-12-31 17:00:37.808397073 +0000
+@@ -20,8 +20,8 @@
+ #define INDICONNECTION_HPP
+ 
+ #include <QObject>
+-#include <libs/indiclient/baseclient.h>
+-#include <libs/indidevice/basedevice.h>
++#include <libindi/baseclient.h>
++#include <libindi/basedevice.h>
+ 
+ #include <mutex>
+ #include <QStringList>
+--- stellarium-24.4/plugins/TelescopeControl/src/INDI/TelescopeClientINDI.cpp~	2024-12-18 11:01:07.000000000 +0000
++++ stellarium-24.4/plugins/TelescopeControl/src/INDI/TelescopeClientINDI.cpp	2024-12-31 17:54:11.386629321 +0000
+@@ -25,7 +25,7 @@
+ 
+ #include "StelCore.hpp"
+ #include "StelUtils.hpp"
+-#include <libs/indibase/inditelescope.h>
++#include <libindi/inditelescope.h>
+ #include "INDIControlWidget.hpp"
+ 
+ TelescopeClientINDI::TelescopeClientINDI(const QString &name, const QString &params):
+--- stellarium-24.4/plugins/TelescopeControl/src/INDI/INDIConnection.cpp~	2024-12-18 11:01:07.000000000 +0000
++++ stellarium-24.4/plugins/TelescopeControl/src/INDI/INDIConnection.cpp	2024-12-31 17:55:17.191246347 +0000
+@@ -25,9 +25,9 @@
+ #include <limits>
+ #include <cmath>
+ 
+-#include <libs/indiclient/baseclient.h>
+-#include <libs/indidevice/basedevice.h>
+-#include <libs/indibase/inditelescope.h>
++#include <libindi/baseclient.h>
++#include <libindi/basedevice.h>
++#include <libindi/inditelescope.h>
+ 
+ const int INDIConnection::SLEW_STOP = INDI::Telescope::SLEW_GUIDE - 1;
+ 
